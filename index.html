@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>InterieurWERK Viersen — Fliesen, Naturstein & Bodenbeläge | Showroom Viersen</title>
+<meta name="description" content="InterieurWERK Viersen — Ihre Adresse für hochwertige Fliesen, Feinsteinzeug, Naturstein, Parkett und Bodenbeläge. Beratung, Planung, Verlegung und Großhandel aus einer Hand. Showroom in der alten Designfabrik Viersen." />
+<link rel="canonical" href="https://www.interieurwerk-viersen.de/" />
+<meta name="author" content="InterieurWERK Viersen" />
+<meta name="theme-color" content="#BCEEE3" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230E1413'/><rect x='7' y='7' width='8' height='8' rx='1.5' fill='%23BCEEE3'/><rect x='17' y='7' width='8' height='8' rx='1.5' fill='%236FE0C6'/><rect x='7' y='17' width='8' height='8' rx='1.5' fill='%236FE0C6'/><rect x='17' y='17' width='8' height='8' rx='1.5' fill='%23BCEEE3'/></svg>" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="de_DE" />
+<meta property="og:site_name" content="InterieurWERK Viersen" />
+<meta property="og:title" content="InterieurWERK Viersen — Fliesen, Naturstein & Bodenbeläge" />
+<meta property="og:description" content="Hochwertige Fliesen, Feinsteinzeug, Naturstein, Parkett und Bodenbeläge in Viersen. Beratung, Planung, Verlegung und Großhandel aus einer Hand." />
+<meta property="og:url" content="https://www.interieurwerk-viersen.de/" />
+<meta property="og:image" content="https://www.interieurwerk-viersen.de/wp-content/uploads/go-x/u/85e738c1-5d5f-4cc5-b4c5-c2cf037562d8/l0,t0,w1698,h1131/image-768x512.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="InterieurWERK Viersen — Fliesen, Naturstein & Bodenbeläge" />
+<meta name="twitter:description" content="Hochwertige Fliesen, Naturstein, Parkett und Bodenbeläge in Viersen. Alles aus einer Hand." />
+<meta name="twitter:image" content="https://www.interieurwerk-viersen.de/wp-content/uploads/go-x/u/85e738c1-5d5f-4cc5-b4c5-c2cf037562d8/l0,t0,w1698,h1131/image-768x512.jpg" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   VARIABLES
+============================================================ */
+:root{
+  --mint:#BCEEE3;          /* Upperdog mint accent */
+  --mint-strong:#6FE0C6;
+  --mint-deep:#0F4D42;
+  --ink:#0E1413;           /* near black */
+  --ink-soft:#2a2f2e;
+  --paper:#ffffff;
+  --cream:#EAF8F3;         /* soft mint panel */
+  --cream-2:#F4F6F5;
+  --line:rgba(14,20,19,.12);
+  --muted:#5d6664;
+  --radius:22px;
+  --radius-lg:34px;
+  --ease:cubic-bezier(.22,1,.36,1);
+  --container:1320px;
+  --font-display:"Space Grotesk", system-ui, sans-serif;
+  --font-body:"Inter", system-ui, sans-serif;
+}
+
+/* ============================================================
+   RESET
+============================================================ */
+*{margin:0;padding:0;box-sizing:border-box;}
+html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+body{
+  font-family:var(--font-body);
+  color:var(--ink);
+  background:var(--paper);
+  line-height:1.55;
+  overflow-x:hidden;
+}
+body.locked{overflow:hidden;}
+a{color:inherit;text-decoration:none;}
+img{display:block;max-width:100%;}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;}
+::selection{background:var(--mint);color:var(--ink);}
+
+h1,h2,h3,h4{font-family:var(--font-display);font-weight:600;line-height:1.02;letter-spacing:-.02em;}
+.container{width:100%;max-width:var(--container);margin:0 auto;padding:0 40px;}
+.skip{position:fixed;top:-60px;left:16px;z-index:10001;background:var(--ink);color:#fff;font-family:var(--font-display);font-weight:600;font-size:14px;padding:12px 18px;border-radius:0 0 12px 12px;transition:top .25s var(--ease);}
+.skip:focus{top:0;outline:3px solid var(--mint-strong);}
+:focus-visible{outline:3px solid var(--mint-strong);outline-offset:2px;}
+
+/* ============================================================
+   CUSTOM CURSOR
+============================================================ */
+.cursor{
+  position:fixed;top:0;left:0;width:46px;height:46px;border-radius:50%;
+  border:1.5px solid var(--ink);
+  transform:translate(-50%,-50%);
+  pointer-events:none;z-index:9999;
+  transition:width .35s var(--ease),height .35s var(--ease),background .35s var(--ease),border-color .35s var(--ease),opacity .3s;
+  display:grid;place-items:center;mix-blend-mode:difference;
+}
+.cursor.is-difference{border-color:#fff;}
+.cursor.grow{width:62px;height:62px;}
+.cursor.dot{width:10px;height:10px;background:var(--ink);border-color:transparent;}
+.cursor-dot{
+  position:fixed;top:0;left:0;width:6px;height:6px;border-radius:50%;background:var(--ink);
+  transform:translate(-50%,-50%);pointer-events:none;z-index:9999;mix-blend-mode:difference;
+}
+@media (hover:none),(pointer:coarse){.cursor,.cursor-dot{display:none!important;}}
+
+/* ============================================================
+   PRELOADER
+============================================================ */
+.preloader{
+  position:fixed;inset:0;z-index:10000;background:var(--ink);
+  display:grid;place-items:center;color:#fff;
+}
+.preloader__inner{overflow:hidden;}
+.preloader__word{
+  font-family:var(--font-display);font-weight:600;font-size:clamp(28px,7vw,72px);
+  letter-spacing:-.02em;transform:translateY(110%);
+  animation:preIn .9s .15s var(--ease) forwards;
+}
+.preloader__word span{color:var(--mint);}
+.preloader__count{
+  position:absolute;bottom:42px;right:42px;font-family:var(--font-display);
+  font-size:clamp(40px,10vw,120px);color:#1c2422;font-weight:600;line-height:1;
+}
+@keyframes preIn{to{transform:translateY(0);}}
+.preloader.done{transform:translateY(-100%);transition:transform 1s var(--ease);}
+
+/* ============================================================
+   HEADER
+============================================================ */
+.header{
+  position:fixed;top:0;left:0;width:100%;z-index:900;
+  padding:22px 0;transition:transform .5s var(--ease),background .4s,padding .4s;
+}
+.header.hide{transform:translateY(-115%);}
+.header.solid{background:rgba(255,255,255,.82);backdrop-filter:blur(14px);padding:14px 0;border-bottom:1px solid var(--line);}
+.header__row{display:flex;align-items:center;justify-content:space-between;gap:24px;}
+.brand{display:flex;align-items:center;gap:12px;font-family:var(--font-display);font-weight:700;font-size:22px;letter-spacing:-.02em;color:var(--ink);}
+.brand .dot{width:11px;height:11px;border-radius:50%;background:var(--mint-strong);box-shadow:0 0 0 4px rgba(111,224,198,.25);}
+.brand b{font-weight:700;}
+.brand .light{font-weight:400;color:var(--ink);}
+.header.hero-mode .brand,.header.hero-mode .menu-btn{color:#fff;}
+.header.hero-mode .brand .light{color:#fff;}
+.header__actions{display:flex;align-items:center;gap:14px;}
+.btn{
+  display:inline-flex;align-items:center;gap:10px;font-family:var(--font-display);
+  font-weight:600;font-size:15px;padding:13px 22px;border-radius:100px;
+  background:var(--ink);color:#fff;transition:transform .35s var(--ease),background .35s,color .35s;
+  white-space:nowrap;
+}
+.btn:hover{transform:translateY(-2px);background:var(--mint);color:var(--ink);}
+.btn--mint{background:var(--mint);color:var(--ink);}
+.btn--mint:hover{background:var(--ink);color:#fff;}
+.btn--ghost{background:transparent;border:1.5px solid currentColor;color:var(--ink);}
+.btn--ghost:hover{background:var(--ink);color:#fff;border-color:var(--ink);}
+.btn .arrow{transition:transform .35s var(--ease);}
+.btn:hover .arrow{transform:translateX(4px);}
+.menu-btn{
+  display:flex;align-items:center;gap:12px;font-family:var(--font-display);font-weight:600;font-size:15px;color:var(--ink);
+}
+.menu-btn .bars{display:inline-flex;flex-direction:column;gap:5px;width:26px;}
+.menu-btn .bars span{height:2px;width:100%;background:currentColor;transition:transform .4s var(--ease),opacity .3s;}
+body.menu-open .menu-btn .bars span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+body.menu-open .menu-btn .bars span:nth-child(2){opacity:0;}
+body.menu-open .menu-btn .bars span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+@media (max-width:640px){.btn-termin-top{display:none;}}
+
+/* ============================================================
+   OVERLAY MENU
+============================================================ */
+.overlay{
+  position:fixed;inset:0;z-index:880;background:var(--ink);color:#fff;
+  clip-path:circle(0% at calc(100% - 70px) 50px);
+  transition:clip-path .8s var(--ease);
+  display:flex;flex-direction:column;justify-content:center;
+  pointer-events:none;
+}
+body.menu-open .overlay{clip-path:circle(150% at calc(100% - 70px) 50px);pointer-events:auto;}
+.overlay__grid{display:grid;grid-template-columns:1.3fr .7fr;gap:40px;align-items:center;}
+.overlay__nav{display:flex;flex-direction:column;gap:6px;}
+.overlay__nav a{
+  font-family:var(--font-display);font-weight:600;font-size:clamp(34px,6vw,72px);
+  letter-spacing:-.02em;line-height:1.05;color:#fff;display:inline-flex;align-items:baseline;gap:18px;
+  width:max-content;transition:color .35s,padding .45s var(--ease);opacity:0;transform:translateY(40px);
+}
+body.menu-open .overlay__nav a{opacity:1;transform:translateY(0);transition:opacity .6s var(--ease),transform .6s var(--ease),color .35s;}
+body.menu-open .overlay__nav a:nth-child(1){transition-delay:.15s;}
+body.menu-open .overlay__nav a:nth-child(2){transition-delay:.22s;}
+body.menu-open .overlay__nav a:nth-child(3){transition-delay:.29s;}
+body.menu-open .overlay__nav a:nth-child(4){transition-delay:.36s;}
+body.menu-open .overlay__nav a:nth-child(5){transition-delay:.43s;}
+body.menu-open .overlay__nav a:nth-child(6){transition-delay:.5s;}
+.overlay__nav a .num{font-size:14px;color:var(--mint);font-weight:500;}
+.overlay__nav a:hover{color:var(--mint);padding-left:14px;}
+.overlay__side{opacity:0;transition:opacity .6s .5s var(--ease);}
+body.menu-open .overlay__side{opacity:1;}
+.overlay__side h4{font-size:13px;text-transform:uppercase;letter-spacing:.14em;color:var(--mint);margin-bottom:14px;font-weight:500;}
+.overlay__side p,.overlay__side a{color:#cfd6d4;font-size:16px;line-height:1.7;}
+.overlay__side a:hover{color:#fff;}
+.overlay__side .blk{margin-bottom:30px;}
+.overlay__socials{display:flex;gap:18px;margin-top:6px;}
+.overlay__socials a{font-family:var(--font-display);font-weight:600;color:#fff;}
+@media (max-width:860px){.overlay__grid{grid-template-columns:1fr;gap:30px;}.overlay__side{display:none;}}
+
+/* ============================================================
+   HERO
+============================================================ */
+.hero{
+  position:relative;min-height:100svh;display:flex;align-items:flex-end;
+  color:#fff;overflow:hidden;padding-bottom:70px;
+}
+.hero__media{position:absolute;inset:0;z-index:-2;}
+.hero__media img{width:100%;height:120%;object-fit:cover;transform:translateY(0);will-change:transform;}
+.hero__media::after{content:"";position:absolute;inset:0;background:
+  linear-gradient(180deg,rgba(8,12,11,.55) 0%,rgba(8,12,11,.25) 35%,rgba(8,12,11,.75) 100%);}
+.hero__noise{position:absolute;inset:0;z-index:-1;opacity:.5;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");}
+.hero__top{position:absolute;top:120px;left:0;width:100%;}
+.hero__label{
+  display:inline-flex;align-items:center;gap:12px;font-family:var(--font-display);
+  font-size:13px;letter-spacing:.16em;text-transform:uppercase;font-weight:500;
+  padding:9px 16px;border:1px solid rgba(255,255,255,.35);border-radius:100px;
+}
+.hero__label .ping{width:8px;height:8px;border-radius:50%;background:var(--mint-strong);box-shadow:0 0 0 0 rgba(111,224,198,.7);animation:ping 2s infinite;}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(111,224,198,.6);}70%{box-shadow:0 0 0 12px rgba(111,224,198,0);}100%{box-shadow:0 0 0 0 rgba(111,224,198,0);}}
+.hero h1{
+  font-size:clamp(46px,8.4vw,128px);font-weight:600;line-height:.98;max-width:14ch;
+}
+.hero h1 .em{color:var(--mint);}
+.hero h1 .line{display:block;overflow:hidden;}
+.hero h1 .line span{display:block;transform:translateY(110%);}
+.hero.in h1 .line span{transform:translateY(0);transition:transform 1s var(--ease);}
+.hero.in h1 .line:nth-child(2) span{transition-delay:.09s;}
+.hero.in h1 .line:nth-child(3) span{transition-delay:.18s;}
+.hero__bottom{display:flex;align-items:flex-end;justify-content:space-between;gap:40px;margin-top:34px;flex-wrap:wrap;}
+.hero__sub{max-width:46ch;font-size:18px;color:#e7ecea;}
+.hero__cta{display:flex;gap:14px;flex-wrap:wrap;}
+.hero .btn--ghost{color:#fff;border-color:rgba(255,255,255,.5);}
+.hero .btn--ghost:hover{background:#fff;color:var(--ink);border-color:#fff;}
+.scroll-hint{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;opacity:.8;}
+.scroll-hint .line{width:1px;height:42px;background:rgba(255,255,255,.6);position:relative;overflow:hidden;}
+.scroll-hint .line::after{content:"";position:absolute;top:-100%;left:0;width:100%;height:100%;background:var(--mint);animation:scrolldown 1.8s infinite;}
+@keyframes scrolldown{0%{top:-100%;}60%,100%{top:100%;}}
+
+/* ============================================================
+   NOTICE / TICKER
+============================================================ */
+.ticker{background:var(--ink);color:#fff;overflow:hidden;padding:14px 0;border-top:1px solid rgba(255,255,255,.08);}
+.ticker__track{display:flex;gap:60px;white-space:nowrap;width:max-content;animation:marquee 28s linear infinite;}
+.ticker:hover .ticker__track{animation-play-state:paused;}
+.ticker span{font-family:var(--font-display);font-weight:500;font-size:15px;letter-spacing:.02em;display:inline-flex;align-items:center;gap:18px;color:#dfe6e4;}
+.ticker span::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--mint-strong);}
+@keyframes marquee{to{transform:translateX(-50%);}}
+
+/* ============================================================
+   SECTION BASICS
+============================================================ */
+.section{padding:130px 0;position:relative;}
+.section--cream{background:var(--cream);}
+.section--cream2{background:var(--cream-2);}
+.section--ink{background:var(--ink);color:#fff;}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-display);font-size:13px;font-weight:500;text-transform:uppercase;letter-spacing:.16em;color:var(--mint-deep);margin-bottom:22px;}
+.eyebrow::before{content:"";width:26px;height:1.5px;background:var(--mint-deep);}
+.section--ink .eyebrow{color:var(--mint);}
+.section--ink .eyebrow::before{background:var(--mint);}
+.h-sec{font-size:clamp(34px,5.4vw,76px);line-height:1;max-width:16ch;}
+.lead{font-size:clamp(18px,2vw,22px);color:var(--muted);max-width:54ch;line-height:1.6;}
+.section--ink .lead{color:#b9c2c0;}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(46px);transition:opacity 1s var(--ease),transform 1s var(--ease);}
+.reveal.in{opacity:1;transform:none;}
+.reveal-d1{transition-delay:.08s;}
+.reveal-d2{transition-delay:.16s;}
+.reveal-d3{transition-delay:.24s;}
+.mask{overflow:hidden;}
+.mask>*{transform:translateY(110%);transition:transform 1s var(--ease);}
+.mask.in>*{transform:translateY(0);}
+
+/* ============================================================
+   INTRO / SORTIMENT
+============================================================ */
+.intro__head{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:end;margin-bottom:70px;}
+@media (max-width:860px){.intro__head{grid-template-columns:1fr;gap:24px;}}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+@media (max-width:980px){.cards{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:600px){.cards{grid-template-columns:1fr;}}
+.card{
+  position:relative;border-radius:var(--radius);overflow:hidden;background:var(--ink);
+  aspect-ratio:4/4.4;display:flex;flex-direction:column;justify-content:flex-end;
+  isolation:isolate;color:#fff;
+}
+.card__img{position:absolute;inset:0;z-index:-2;}
+.card__img img{width:100%;height:100%;object-fit:cover;transition:transform 1.1s var(--ease);}
+.card::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(8,12,11,.05),rgba(8,12,11,.78));}
+.card:hover .card__img img{transform:scale(1.08);}
+.card__body{padding:26px;}
+.card__num{font-family:var(--font-display);font-size:13px;color:var(--mint);font-weight:500;letter-spacing:.05em;}
+.card h3{font-size:25px;margin:8px 0 10px;}
+.card p{font-size:15px;color:#dbe3e1;max-width:30ch;}
+.card__tag{margin-top:16px;display:inline-flex;align-items:center;gap:8px;font-family:var(--font-display);font-size:13px;font-weight:600;color:var(--ink);background:var(--mint);padding:8px 14px;border-radius:100px;transform:translateY(8px);opacity:0;transition:all .4s var(--ease);}
+.card:hover .card__tag{transform:translateY(0);opacity:1;}
+
+/* ============================================================
+   SERVICE ROWS
+============================================================ */
+.srv{display:grid;grid-template-columns:repeat(12,1fr);gap:30px;align-items:center;padding:60px 0;border-top:1px solid var(--line);}
+.srv:first-of-type{border-top:none;}
+.srv__media{grid-column:span 6;border-radius:var(--radius-lg);overflow:hidden;aspect-ratio:16/11;}
+.srv__media img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease);}
+.srv:hover .srv__media img{transform:scale(1.05);}
+.srv__body{grid-column:span 5;}
+.srv:nth-child(even) .srv__media{order:2;grid-column:8/14;}
+.srv:nth-child(even) .srv__body{grid-column:1/6;}
+.srv__num{font-family:var(--font-display);font-size:15px;font-weight:600;color:var(--mint-deep);}
+.srv h3{font-size:clamp(28px,3.6vw,44px);margin:12px 0 16px;}
+.srv p{color:var(--muted);font-size:17px;max-width:46ch;}
+.srv .mini-link{display:inline-flex;align-items:center;gap:10px;margin-top:22px;font-family:var(--font-display);font-weight:600;color:var(--ink);border-bottom:2px solid var(--mint);padding-bottom:4px;transition:gap .35s var(--ease);}
+.srv .mini-link:hover{gap:16px;}
+@media (max-width:860px){
+  .srv{grid-template-columns:1fr;gap:22px;padding:44px 0;}
+  .srv__media,.srv__body,.srv:nth-child(even) .srv__media,.srv:nth-child(even) .srv__body{grid-column:1/-1;order:0;}
+}
+
+/* ============================================================
+   MARQUEE BIG
+============================================================ */
+.bigmarquee{padding:70px 0;background:var(--mint);overflow:hidden;}
+.bigmarquee__track{display:flex;gap:40px;width:max-content;white-space:nowrap;animation:marquee 30s linear infinite;}
+.bigmarquee__track span{font-family:var(--font-display);font-weight:600;font-size:clamp(40px,7vw,96px);color:var(--ink);letter-spacing:-.02em;display:inline-flex;align-items:center;gap:40px;}
+.bigmarquee__track span::after{content:"✦";color:var(--mint-deep);font-size:.5em;}
+
+/* ============================================================
+   SHOWROOM
+============================================================ */
+.showroom__grid{display:grid;grid-template-columns:1.05fr .95fr;gap:60px;align-items:center;}
+@media (max-width:900px){.showroom__grid{grid-template-columns:1fr;gap:34px;}}
+.showroom__imgs{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto auto;gap:18px;}
+.showroom__imgs figure{border-radius:var(--radius);overflow:hidden;}
+.showroom__imgs figure img{width:100%;height:100%;object-fit:cover;}
+.showroom__imgs .tall{grid-row:span 2;aspect-ratio:3/5;}
+.showroom__imgs .wide{aspect-ratio:4/3;}
+.hours{margin-top:34px;border-top:1px solid var(--line);}
+.hours__row{display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid var(--line);font-size:17px;}
+.hours__row b{font-family:var(--font-display);font-size:17px;font-weight:600;}
+.hours__row.closed{color:var(--muted);}
+.hours__row .tag{font-size:12px;background:var(--mint);color:var(--ink);padding:4px 10px;border-radius:100px;font-weight:600;font-family:var(--font-display);}
+
+/* ============================================================
+   STATS
+============================================================ */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:30px;}
+@media (max-width:820px){.stats{grid-template-columns:repeat(2,1fr);gap:40px 20px;}}
+.stat__num{font-family:var(--font-display);font-weight:600;font-size:clamp(48px,7vw,92px);line-height:1;letter-spacing:-.03em;}
+.stat__num .u{color:var(--mint);}
+.stat__txt{margin-top:12px;color:#b9c2c0;font-size:16px;max-width:24ch;}
+
+/* ============================================================
+   TEAM
+============================================================ */
+.team{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
+@media (max-width:980px){.team{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:520px){.team{grid-template-columns:1fr;}}
+.member{}
+.member__img{border-radius:var(--radius);overflow:hidden;aspect-ratio:1/1;background:var(--cream);position:relative;}
+/* einheitliche S/W-Behandlung für alle Team-Fotos (gleicht unterschiedliche Hintergrundtöne aus) */
+.member__img{background:#e9ecec;}
+.member__img img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease),filter .6s;filter:grayscale(1) contrast(1.07) brightness(1.02);}
+.member:hover .member__img img{transform:scale(1.06);filter:grayscale(0) contrast(1) brightness(1);}
+.member__img .badge{position:absolute;left:14px;bottom:14px;background:var(--mint);color:var(--ink);font-family:var(--font-display);font-weight:600;font-size:12px;padding:6px 12px;border-radius:100px;}
+.member h3{font-size:21px;margin:18px 0 4px;}
+.member .role{font-family:var(--font-display);font-size:13px;font-weight:600;color:var(--mint-deep);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;}
+.member p{font-size:15px;color:var(--muted);}
+
+/* ============================================================
+   GALLERY
+============================================================ */
+.gallery{display:grid;grid-template-columns:repeat(12,1fr);gap:18px;}
+.gallery figure{border-radius:var(--radius);overflow:hidden;position:relative;}
+.gallery figure img{width:100%;height:100%;object-fit:cover;transition:transform 1.1s var(--ease);}
+.gallery figure:hover img{transform:scale(1.07);}
+.gallery .g1{grid-column:span 7;aspect-ratio:16/10;}
+.gallery .g2{grid-column:span 5;aspect-ratio:16/10;}
+.gallery .g3{grid-column:span 4;aspect-ratio:4/5;}
+.gallery .g4{grid-column:span 4;aspect-ratio:4/5;}
+.gallery .g5{grid-column:span 4;aspect-ratio:4/5;}
+.gallery figcaption{position:absolute;left:18px;bottom:18px;background:rgba(255,255,255,.9);backdrop-filter:blur(6px);padding:8px 14px;border-radius:100px;font-family:var(--font-display);font-weight:600;font-size:13px;}
+@media (max-width:780px){.gallery .g1,.gallery .g2{grid-column:span 12;}.gallery .g3,.gallery .g4,.gallery .g5{grid-column:span 6;}}
+
+/* ============================================================
+   CTA
+============================================================ */
+.cta{background:var(--ink);color:#fff;text-align:center;padding:150px 0;position:relative;overflow:hidden;}
+.cta__blob{position:absolute;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,var(--mint) 0%,transparent 70%);opacity:.4;filter:blur(20px);}
+.cta__blob.a{top:-160px;left:-120px;}
+.cta__blob.b{bottom:-180px;right:-120px;background:radial-gradient(circle,var(--mint-strong) 0%,transparent 70%);}
+.cta h2{font-size:clamp(40px,7vw,104px);line-height:.98;position:relative;}
+.cta h2 .em{color:var(--mint);}
+.cta p{margin:26px auto 36px;max-width:46ch;color:#c4ccca;font-size:19px;position:relative;}
+.cta .btn{font-size:18px;padding:18px 34px;position:relative;}
+
+/* ============================================================
+   FOOTER
+============================================================ */
+.footer{background:#080b0a;color:#cfd6d4;padding:90px 0 40px;}
+.footer__top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.1fr;gap:40px;padding-bottom:60px;border-bottom:1px solid rgba(255,255,255,.1);}
+@media (max-width:900px){.footer__top{grid-template-columns:1fr 1fr;gap:34px;}}
+@media (max-width:520px){.footer__top{grid-template-columns:1fr;}}
+.footer .brand{color:#fff;margin-bottom:18px;}
+.footer__about{max-width:34ch;font-size:15px;color:#9aa4a2;}
+.footer h5{font-family:var(--font-display);font-size:13px;text-transform:uppercase;letter-spacing:.12em;color:#fff;margin-bottom:18px;font-weight:600;}
+.footer ul{list-style:none;display:flex;flex-direction:column;gap:11px;}
+.footer ul a,.footer ul li{font-size:15px;color:#aab3b1;transition:color .3s;}
+.footer ul a:hover{color:var(--mint);}
+.footer__bottom{display:flex;justify-content:space-between;align-items:center;gap:20px;padding-top:30px;flex-wrap:wrap;font-size:13px;color:#7e8987;}
+.footer__bottom a:hover{color:#fff;}
+.footer__socials{display:flex;gap:18px;}
+
+.backtop{position:fixed;right:28px;bottom:28px;z-index:600;width:54px;height:54px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;opacity:0;transform:translateY(20px);transition:all .4s var(--ease);}
+.backtop.show{opacity:1;transform:none;}
+.backtop:hover{background:var(--mint);color:var(--ink);}
+
+/* ============================================================
+   CONTACT
+============================================================ */
+.contact{display:grid;grid-template-columns:.9fr 1.1fr;gap:42px;align-items:start;}
+@media (max-width:900px){.contact{grid-template-columns:1fr;gap:30px;}}
+.contact__list{list-style:none;display:flex;flex-direction:column;gap:0;margin-bottom:24px;}
+.contact__list li{display:flex;flex-direction:column;gap:4px;padding:16px 0;border-bottom:1px solid var(--line);}
+.contact__list li:first-child{padding-top:0;}
+.contact__lbl{font-family:var(--font-display);font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:var(--mint-deep);font-weight:600;}
+.contact__list span,.contact__list a{font-size:18px;line-height:1.45;}
+.contact__list a:hover{color:var(--mint-deep);}
+.contact__map{border-radius:var(--radius);overflow:hidden;aspect-ratio:16/10;border:1px solid var(--line);background:var(--cream);}
+.contact__map iframe{width:100%;height:100%;border:0;filter:grayscale(.25) contrast(1.02);}
+.map-consent{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:10px;padding:26px;background:
+  linear-gradient(135deg,var(--cream) 0%,#dff2ec 100%);}
+.map-consent p{margin:0;max-width:36ch;}
+.map-consent p strong{font-family:var(--font-display);font-size:17px;}
+.map-consent p:nth-of-type(2){font-size:13.5px;color:var(--muted);}
+.map-consent .btn{margin-top:6px;}
+.contact__form{background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);padding:32px;display:flex;flex-direction:column;gap:18px;box-shadow:0 40px 70px -50px rgba(14,20,19,.5);}
+.field{display:flex;flex-direction:column;gap:8px;}
+.field.two{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+@media (max-width:520px){.field.two{grid-template-columns:1fr;}}
+.field label{font-size:14px;font-weight:600;color:var(--ink-soft);font-family:var(--font-display);}
+.contact__form input,.contact__form textarea{
+  font-family:var(--font-body);font-size:16px;color:var(--ink);
+  background:var(--cream-2);border:1px solid var(--line);border-radius:14px;padding:13px 15px;width:100%;
+  transition:border-color .3s,background .3s,box-shadow .3s;resize:vertical;
+}
+.contact__form input::placeholder,.contact__form textarea::placeholder{color:#9aa3a1;}
+.contact__form input:focus,.contact__form textarea:focus{outline:none;border-color:var(--mint-strong);background:#fff;box-shadow:0 0 0 4px rgba(111,224,198,.18);}
+.consent{display:flex;gap:11px;align-items:flex-start;cursor:pointer;line-height:1.5;font-size:14px;color:var(--muted);}
+.consent input{width:18px;height:18px;margin-top:2px;accent-color:var(--mint-deep);flex:none;}
+.contact__form .btn{align-self:flex-start;}
+.form-note{font-size:14px;margin:0;min-height:1.2em;line-height:1.45;}
+.form-note.ok{color:var(--mint-deep);font-weight:600;}
+.form-note.err{color:#b3261e;font-weight:600;}
+
+@media (max-width:640px){.container{padding:0 22px;}.section{padding:90px 0;}.hero__top{top:96px;}}
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.001ms!important;transition-duration:.001ms!important;}
+  .reveal,.mask>*,.hero h1 .line span{opacity:1!important;transform:none!important;}
+}
+.gallery--dyn{grid-template-columns:repeat(3,1fr)!important}
+.gallery--dyn figure{grid-column:auto!important;aspect-ratio:4/3!important}
+@media (max-width:780px){.gallery--dyn{grid-template-columns:repeat(2,1fr)!important}}
+@media (max-width:520px){.gallery--dyn{grid-template-columns:1fr!important}}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"HomeAndConstructionBusiness",
+  "name":"InterieurWERK Viersen",
+  "description":"Showroom und Großhandel für hochwertige Fliesen, Feinsteinzeug, Naturstein, Parkett und Bodenbeläge in Viersen. Beratung, Planung, Aufmaß und fachgerechte Verlegung aus einer Hand.",
+  "image":"https://www.interieurwerk-viersen.de/wp-content/uploads/go-x/u/85e738c1-5d5f-4cc5-b4c5-c2cf037562d8/l0,t0,w1698,h1131/image-768x512.jpg",
+  "url":"https://www.interieurwerk-viersen.de/",
+  "telephone":"+49 2162 3613160",
+  "email":"info@interieurwerk-viersen.de",
+  "priceRange":"€€",
+  "address":{
+    "@type":"PostalAddress",
+    "streetAddress":"Grefrather Straße 120",
+    "postalCode":"41749",
+    "addressLocality":"Viersen",
+    "addressRegion":"NRW",
+    "addressCountry":"DE"
+  },
+  "openingHoursSpecification":[
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"08:00","closes":"17:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"09:00","closes":"12:00"}
+  ],
+  "sameAs":[
+    "https://www.facebook.com/profile.php?id=100076227931705",
+    "https://www.instagram.com/interieurwerk_viersen"
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#sortiment">Zum Inhalt springen</a>
+
+<!-- CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+
+<!-- PRELOADER -->
+<div class="preloader" id="preloader">
+  <div class="preloader__inner"><div class="preloader__word">Interieur<span>WERK</span></div></div>
+  <div class="preloader__count" id="preCount">0</div>
+</div>
+
+<!-- HEADER -->
+<header class="header hero-mode" id="header">
+  <div class="container header__row">
+    <a href="#top" class="brand" data-cursor><span class="dot"></span><span><b>Interieur</b><span class="light">WERK</span></span></a>
+    <div class="header__actions">
+      <a href="#kontakt" class="btn btn--mint btn-termin-top" data-cursor>Termin vereinbaren <span class="arrow">→</span></a>
+      <button class="menu-btn" id="menuBtn" data-cursor aria-label="Menü öffnen">
+        <span id="menuLabel">Menü</span>
+        <span class="bars"><span></span><span></span><span></span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- OVERLAY MENU -->
+<div class="overlay" id="overlay">
+  <div class="container overlay__grid">
+    <nav class="overlay__nav">
+      <a href="#top" data-menu-link data-cursor><span class="num">01</span> Start</a>
+      <a href="#sortiment" data-menu-link data-cursor><span class="num">02</span> Sortiment</a>
+      <a href="#service" data-menu-link data-cursor><span class="num">03</span> Service</a>
+      <a href="#showroom" data-menu-link data-cursor><span class="num">04</span> Showroom</a>
+      <a href="#team" data-menu-link data-cursor><span class="num">05</span> Team</a>
+      <a href="#kontakt" data-menu-link data-cursor><span class="num">06</span> Kontakt</a>
+    </nav>
+    <div class="overlay__side">
+      <div class="blk">
+        <h4>Showroom</h4>
+        <p><span data-content-html="address">Grefrather Straße 120<br>41749 Viersen</span><br>Alte Designfabrik</p>
+      </div>
+      <div class="blk">
+        <h4>Kontakt</h4>
+        <p><a href="tel:+4921623613160" data-cursor data-content="phone">+49 (0)2162 36 13 160</a><br>
+        <a href="mailto:info@interieurwerk-viersen.de" data-cursor data-content="email">info@interieurwerk-viersen.de</a></p>
+      </div>
+      <div class="blk">
+        <h4>Folgen</h4>
+        <div class="overlay__socials">
+          <a href="https://www.instagram.com/interieurwerk_viersen" target="_blank" rel="noopener" data-cursor>Instagram</a>
+          <a href="https://www.facebook.com/profile.php?id=100076227931705" target="_blank" rel="noopener" data-cursor>Facebook</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero__media" id="heroMedia">
+    <img data-content-src="hero_image" loading="eager" fetchpriority="high" decoding="async" src="https://www.interieurwerk-viersen.de/wp-content/uploads/go-x/u/85e738c1-5d5f-4cc5-b4c5-c2cf037562d8/l0,t0,w1698,h1131/image-768x512.jpg" alt="Hochwertig verlegte Fliesen im InterieurWERK Viersen" />
+  </div>
+  <div class="hero__noise"></div>
+  <div class="hero__top">
+    <div class="container">
+      <span class="hero__label"><span class="ping"></span><span data-content="hero_eyebrow">Fliesen · Naturstein · Parkett — Viersen</span></span>
+    </div>
+  </div>
+  <div class="container">
+    <h1>
+      <span class="line"><span>Schöne Böden,</span></span>
+      <span class="line"><span><span class="em">brillante</span> Wände.</span></span>
+    </h1>
+    <div class="hero__bottom">
+      <p class="hero__sub" data-content="hero_sub">Ihre Adresse für hochwertige Materialien, mit denen Sie Böden und Wände in Ihrem Zuhause neu gestalten — von der Beratung bis zur fachgerechten Verlegung.</p>
+      <div class="hero__cta">
+        <a href="#sortiment" class="btn btn--mint" data-cursor>Unser Sortiment <span class="arrow">→</span></a>
+        <a href="#kontakt" class="btn btn--ghost" data-cursor>Termin vereinbaren</a>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint"><span>Scroll</span><span class="line"></span></div>
+</section>
+
+<!-- TICKER / NOTICE -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker__track" id="tickerTrack">
+    <span>Showroom in der alten Designfabrik Viersen</span>
+    <span>Mo–Fr 08–17 Uhr · Sa 09–12 Uhr</span>
+    <span>Beratung · Planung · Aufmaß · Verlegung</span>
+    <span>Auch Großhandel für Fliesenbedarf</span>
+    <span>Showroom in der alten Designfabrik Viersen</span>
+    <span>Mo–Fr 08–17 Uhr · Sa 09–12 Uhr</span>
+    <span>Beratung · Planung · Aufmaß · Verlegung</span>
+    <span>Auch Großhandel für Fliesenbedarf</span>
+  </div>
+</div>
+
+<!-- INTRO / SORTIMENT -->
+<section class="section" id="sortiment">
+  <div class="container">
+    <div class="intro__head">
+      <div>
+        <span class="eyebrow reveal">Unser Sortiment</span>
+        <h2 class="h-sec reveal reveal-d1">Alles für Boden &amp; Wand — unter einem Dach</h2>
+      </div>
+      <p class="lead reveal reveal-d2">In unserem modernen Showroom finden Sie eine große Auswahl an Bodenbelägen aus Feinsteinzeug, Boden- und Wandfliesen, Parkett, Laminat und Designböden sowie Riemchen, Mosaike und Keramik für den Außenbereich.</p>
+    </div>
+
+    <div class="cards">
+      <article class="card reveal" data-cursor>
+        <div class="card__img"><img loading="lazy" decoding="async" src="https://www.interieurwerk-viersen.de/wp-content/uploads/go-x/u/85e738c1-5d5f-4cc5-b4c5-c2cf037562d8/l0,t0,w1698,h1131/image-768x512.jpg" alt="Feinsteinzeug und Bodenfliesen"/></div>
+        <div class="card__body">
+          <span class="card__num">01</span>
+          <h3>Feinsteinzeug &amp; Bodenfliesen</h3>
+          <p>Robuste, pflegeleichte Böden in XXL-Formaten, Stein- und Betonoptik.</p>
+          <span class="card__tag">Innen &amp; Außen</span>
+        </div>
+      </article>
+      <article class="card reveal reveal-d1" data-cursor>
+        <div class="card__img"><img loading="lazy" decoding="async" src="https://www.interieurwerk-viersen.de/wp-content/uploads/go-x/u/4a7a97b0-3fc5-4e98-b399-aeefbd40d573/l0,t13,w1080,h720/image-768x512.png" alt="Wandfliesen, Riemchen und Mosaike"/></div>
+        <div class="card__body">
+          <span class="card__num">02</span>
+          <h3>Wandfliesen, Riemchen &amp; Mosaike</h3>
+          <p>Charakterstarke Wände für Bad, Küche und Wohnraum — vom Riemchen bis zum Glasmosaik.</p>
+          <span class="card__tag">Bad &amp; Küche</span>
+        </div>
+      </article>
+      <article class="card reveal reveal-d2" data-cursor>
+        <div class="card__img"><img loading="lazy" decoding="async" src="https://www.interieurwerk-viersen.de/wp-content/uploads/go-x/u/9186504b-0784-4caf-99e7-9b8ebad2e08f/l0,t180,w1080,h719/image-768x511.png" alt="Parkett, Laminat und Designböden"/></div>
+        <div class="card__body">
+          <span class="card__num">03</span>
+          <h3>Parkett, Laminat &amp; Designböden</h3>
+          <p>Warme, wohnliche Böden in vielen Holzoptiken — für jeden Raum das passende System.</p>
+          <span class="card__tag">Wohnen</span>
+        </div>
+      </article>
+      <article class="card reveal" data-cursor>
+        <div class="card__img"><img loading="lazy" decoding="async" src="https://www.interieurwerk-viersen.de/wp-content/uploads/go-x/u/84039b58-2b88-4c11-b305-eaf62ce35f6d/l76,t0,w1592,h1328/image-768x641.jpg" alt="Naturstein, Beton- und Zementoptik"/></div>
+        <div class="card__body">
+          <span class="card__num">04</span>
+          <h3>Naturstein &amp; Zementoptik</h3>
+          <p>Edle Oberflächen aus Naturstein, Beton- und Zementfliesen für besondere Akzente.</p>
+          <span class="card__tag">Premium</span>
+        </div>
+      </article>
+      <article class="card reveal reveal-d1" data-cursor>
+        <div class="card__img"><img loading="lazy" decoding="async" src="https://www.interieurwerk-viersen.de/wp-content/uploads/go-x/u/384444c2-6717-4da9-8764-c6e9cf9e4e7b/l311,t288,w1378,h924/image-768x515.jpg" alt="Keramikplatten für den Außenbereich"/></div>
+        <div class="card__body">
+          <span class="card__num">05</span>
+          <h3>Außenkeramik &amp; Terrassenplatten</h3>
+          <p>Keramikplatten aus Feinsteinzeug für Terrasse und Balkon — frostsicher und langlebig.</p>
+          <span class="card__tag">Outdoor</span>
+        </div>
+      </article>
+      <article class="card reveal reveal-d2" data-cursor>
+        <div class="card__img"><img loading="lazy" decoding="async" src="https://www.interieurwerk-viersen.de/wp-content/uploads/go-x/u/0d9a072f-71ec-4f6f-b87d-10287e0b649e/l0,t0,w1080,h1080/image-768x768.png" alt="Bauchemie, Werkzeug und Zubehör"/></div>
+        <div class="card__body">
+          <span class="card__num">06</span>
+          <h3>Bauchemie, Werkzeug &amp; Zubehör</h3>
+          <p>Von Fliesenschienen über Bauchemie bis zum Werkzeug — alles für Ihr Projekt.</p>
+          <span class="card__tag">Großhandel</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICE -->
+<section class="section section--cream" id="service">
+  <div class="container">
+    <div class="intro__head">
+      <div>
+        <span class="eyebrow reveal">Unser Service für Sie</span>
+        <h2 class="h-sec reveal reveal-d1">Alles aus einer Hand</h2>
+      </div>
+      <p class="lead reveal reveal-d2">Wir sind Ihr Berater und Ideengeber. Von der Beratung über Planung und Aufmaß bis zur fachgerechten Umsetzung begleiten wir Ihr Projekt — und liefern als Großhandel gleich den passenden Bedarf dazu.</p>
+    </div>
+
+    <div class="srv reveal" data-cursor>
+      <div class="srv__media"><img loading="lazy" decoding="async" src="https://www.interieurwerk-viersen.de/wp-content/uploads/go-x/u/4a7a97b0-3fc5-4e98-b399-aeefbd40d573/l0,t13,w1080,h720/image-768x512.png" alt="Beratung im InterieurWERK"/></div>
+      <div class="srv__body">
+        <span class="srv__num">/ 01</span>
+        <h3>Beratung</h3>
+        <p>Vertrauen Sie auf unsere langjährige Erfahrung und Expertise im Bereich Fliesen und Bodenbeläge. Wir beraten Sie bei der Auswahl Ihres Wunschbodens und stehen Ihnen mit Rat und Tat zur Seite.</p>
+        <a href="#kontakt" class="mini-link">Beratung anfragen →</a>
+      </div>
+    </div>
+
+    <div class="srv reveal" data-cursor>
+      <div class="srv__media"><img loading="lazy" decoding="async" src="https://www.interieurwerk-viersen.de/wp-content/uploads/go-x/u/9186504b-0784-4caf-99e7-9b8ebad2e08f/l0,t180,w1080,h719/image-768x511.png" alt="Planung und Aufmaß"/></div>
+      <div class="srv__body">
+        <span class="srv__num">/ 02</span>
+        <h3>Planung &amp; Aufmaß</h3>
+        <p>Wir bieten nicht nur eine umfangreiche Auswahl hochwertiger Produkte, sondern auch einen erstklassigen Planungs- und Aufmaßservice. Unsere Fachleute nehmen die richtigen Maße und helfen bei der Gestaltung Ihres Traumprojekts.</p>
+        <a href="#kontakt" class="mini-link">Aufmaß vereinbaren →</a>
+      </div>
+    </div>
+
+    <div class="srv reveal" data-cursor>
+      <div class="srv__media"><img loading="lazy" decoding="async" src="https://www.interieurwerk-viersen.de/wp-content/uploads/go-x/u/85e738c1-5d5f-4cc5-b4c5-c2cf037562d8/l0,t0,w1698,h1131/image-768x512.jpg" alt="Fachgerechte Verlegung"/></div>
+      <div class="srv__body">
+        <span class="srv__num">/ 03</span>
+        <h3>Umsetzung</h3>
+        <p>Unser Team aus erfahrenen Boden- und Fliesenlegern verfügt über die nötige Expertise, um Ihre Beläge fachgerecht zu verlegen. So werden Ihre Projekte professionell und hochwertig umgesetzt.</p>
+        <a href="#kontakt" class="mini-link">Projekt besprechen →</a>
+      </div>
+    </div>
+
+    <div class="srv reveal" data-cursor>
+      <div class="srv__media"><img loading="lazy" decoding="async" src="https://www.interieurwerk-viersen.de/wp-content/uploads/go-x/u/384444c2-6717-4da9-8764-c6e9cf9e4e7b/l311,t288,w1378,h924/image-768x515.jpg" alt="Großhandel für Fliesenbedarf"/></div>
+      <div class="srv__body">
+        <span class="srv__num">/ 04</span>
+        <h3>Großhandel</h3>
+        <p>Das InterieurWERK agiert auch als Großhandel für Fliesenbedarf. Bei uns erhalten Sie alles für Ihre Projekte — von Bauchemie und Zubehör über Fliesenschienen bis hin zu Werkzeugen.</p>
+        <a href="#kontakt" class="mini-link">Bedarf anfragen →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BIG MARQUEE -->
+<div class="bigmarquee" aria-hidden="true">
+  <div class="bigmarquee__track">
+    <span>Feinsteinzeug</span><span>Naturstein</span><span>Parkett</span><span>Mosaik</span><span>XXL-Fliesen</span><span>Designböden</span><span>Riemchen</span><span>Außenkeramik</span>
+    <span>Feinsteinzeug</span><span>Naturstein</span><span>Parkett</span><span>Mosaik</span><span>XXL-Fliesen</span><span>Designböden</span><span>Riemchen</span><span>Außenkeramik</span>
+  </div>
+</div>
+
+<!-- SHOWROOM -->
+<section class="section" id="showroom">
+  <div class="container showroom__grid">
+    <div class="showroom__imgs reveal" data-cursor>
+      <figure class="tall"><img loading="lazy" decoding="async" src="https://www.interieurwerk-viersen.de/wp-content/uploads/go-x/u/84039b58-2b88-4c11-b305-eaf62ce35f6d/l76,t0,w1592,h1328/image-768x641.jpg" alt="Showroom InterieurWERK"/></figure>
+      <figure class="wide"><img loading="lazy" decoding="async" src="https://www.interieurwerk-viersen.de/wp-content/uploads/go-x/u/4a7a97b0-3fc5-4e98-b399-aeefbd40d573/l0,t13,w1080,h720/image-768x512.png" alt="Auswahl im Showroom"/></figure>
+      <figure class="wide"><img loading="lazy" decoding="async" src="https://www.interieurwerk-viersen.de/wp-content/uploads/go-x/u/0d9a072f-71ec-4f6f-b87d-10287e0b649e/l0,t0,w1080,h1080/image-768x768.png" alt="Beratung vor Ort"/></figure>
+    </div>
+    <div>
+      <span class="eyebrow reveal">Besuchen Sie uns</span>
+      <h2 class="h-sec reveal reveal-d1">Wir verstecken uns nicht hinterm Tresen</h2>
+      <p class="lead reveal reveal-d2" style="margin-top:22px">Schauen Sie persönlich vorbei: In unserem Showroom in der alten Designfabrik erleben Sie Feinsteinzeug, Naturstein, Beton- und Zementfliesen, XXL-Formate, Riemchen, Glasmosaik und Designböden in echt — und finden gemeinsam mit uns die optimale Lösung.</p>
+      <div class="hours reveal reveal-d2">
+        <div class="hours__row"><span>Montag – Freitag</span><b><span data-content="hours_week">08:00 – 17:00</span></b></div>
+        <div class="hours__row"><span>Samstag</span><b><span data-content="hours_sat">09:00 – 12:00</span></b></div>
+        <div class="hours__row closed"><span>Sonntag</span><b>Geschlossen</b></div>
+      </div>
+      <a href="#kontakt" class="btn btn--mint reveal reveal-d3" data-cursor style="margin-top:30px">Termin vereinbaren <span class="arrow">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="section section--ink">
+  <div class="container">
+    <span class="eyebrow reveal">Warum InterieurWERK</span>
+    <h2 class="h-sec reveal reveal-d1" style="margin-bottom:60px">Erfahrung, auf die Sie bauen können</h2>
+    <div class="stats">
+      <div class="reveal"><div class="stat__num" data-count="25" data-suffix="+">0<span class="u">+</span></div><p class="stat__txt">Jahre Erfahrung in der Fliesenbranche</p></div>
+      <div class="reveal reveal-d1"><div class="stat__num" data-count="4" data-suffix="">0<span class="u"></span></div><p class="stat__txt">Leistungen aus einer Hand: Beratung, Planung, Verlegung, Großhandel</p></div>
+      <div class="reveal reveal-d2"><div class="stat__num" data-count="100" data-suffix="%">0<span class="u">%</span></div><p class="stat__txt">Fokus auf Qualität und höchste Standards</p></div>
+      <div class="reveal reveal-d3"><div class="stat__num" data-count="1" data-suffix="" data-text="∞">0<span class="u"></span></div><p class="stat__txt">großer Showroom in der alten Designfabrik Viersen</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="section section--cream2" id="team">
+  <div class="container">
+    <div class="intro__head">
+      <div>
+        <span class="eyebrow reveal">Das Team</span>
+        <h2 class="h-sec reveal reveal-d1">Menschen, die Ihr Projekt ernst nehmen</h2>
+      </div>
+      <p class="lead reveal reveal-d2">Unser erfahrenes Team steht Ihnen mit Leidenschaft und Fachkenntnis zur Seite — vom ersten Beratungsgespräch bis zur Fertigstellung in besten Händen.</p>
+    </div>
+    <div class="team">
+      <article class="member reveal" data-cursor>
+        <div class="member__img"><img loading="lazy" decoding="async" src="https://www.interieurwerk-viersen.de/wp-content/uploads/go-x/u/71fd9304-aae7-490f-b448-ba1bb829a9ad/l0,t0,w1080,h1080/image-384x384.png" alt="Christian Schummers"/><span class="badge">25+ Jahre</span></div>
+        <h3>Christian Schummers</h3>
+        <div class="role">Inhaber</div>
+        <p>Mit über 25 Jahren Erfahrung in der Fliesenbranche ein Ideengeber und Experte auf dem Gebiet der Bodenbeläge.</p>
+      </article>
+      <article class="member reveal reveal-d1" data-cursor>
+        <div class="member__img"><img loading="lazy" decoding="async" src="https://www.interieurwerk-viersen.de/wp-content/uploads/go-x/u/be736284-11f0-486d-8e32-24456a467694/l0,t0,w1080,h1080/image-384x384.png" alt="Stefan Kreuer"/></div>
+        <h3>Stefan Kreuer</h3>
+        <div class="role">Kundenberater</div>
+        <p>Seit 25 Jahren an Christians Seite. Bietet mit enormem Fachwissen professionelle Beratung und erstklassigen Service.</p>
+      </article>
+      <article class="member reveal reveal-d2" data-cursor>
+        <div class="member__img"><img loading="lazy" decoding="async" src="andreas-koerl.jpg" alt="Andreas Körl"/></div>
+        <h3>Andreas Körl</h3>
+        <div class="role">Leiter Fliesenverlegung</div>
+        <p>Ausgebildeter Fliesen-, Platten- und Mosaiklegermeister mit langjähriger Erfahrung — und Ausbilder im Betrieb.</p>
+      </article>
+      <article class="member reveal reveal-d3" data-cursor>
+        <div class="member__img"><img loading="lazy" decoding="async" src="https://www.interieurwerk-viersen.de/wp-content/uploads/go-x/u/cbe6d17a-6791-44d5-8809-105c8313c9ad/l200,t0,w1200,h1200/image-384x384.jpg" alt="Verlegeteam"/></div>
+        <h3>Unser Verlegeteam</h3>
+        <div class="role">Fliesen- &amp; Bodenleger</div>
+        <p>Ein kleines, professionelles Team mit langjähriger Erfahrung, spezialisiert darauf, individuelle Wünsche auf höchstem Niveau umzusetzen.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="section" id="galerie">
+  <div class="container">
+    <div class="intro__head">
+      <div>
+        <span class="eyebrow reveal">Inspiration</span>
+        <h2 class="h-sec reveal reveal-d1">Ein Eindruck aus unserer Welt</h2>
+      </div>
+      <p class="lead reveal reveal-d2">Vom großzügigen XXL-Boden bis zur fein gesetzten Mosaikwand — ein kleiner Vorgeschmack auf das, was wir gemeinsam mit Ihnen realisieren.</p>
+    </div>
+    <div class="gallery reveal" id="iwGallery">
+      <figure class="g1" data-cursor><img data-content-src="gallery1" loading="lazy" decoding="async" src="https://www.interieurwerk-viersen.de/wp-content/uploads/go-x/u/85e738c1-5d5f-4cc5-b4c5-c2cf037562d8/l0,t0,w1698,h1131/image-768x512.jpg" alt="Verlegte Fliesen"/><figcaption>Umsetzung</figcaption></figure>
+      <figure class="g2" data-cursor><img data-content-src="gallery2" loading="lazy" decoding="async" src="https://www.interieurwerk-viersen.de/wp-content/uploads/go-x/u/384444c2-6717-4da9-8764-c6e9cf9e4e7b/l311,t288,w1378,h924/image-768x515.jpg" alt="Großhandel Sortiment"/><figcaption>Großhandel</figcaption></figure>
+      <figure class="g3" data-cursor><img data-content-src="gallery3" loading="lazy" decoding="async" src="https://www.interieurwerk-viersen.de/wp-content/uploads/go-x/u/4a7a97b0-3fc5-4e98-b399-aeefbd40d573/l0,t13,w1080,h720/image-768x512.png" alt="Beratung"/><figcaption>Beratung</figcaption></figure>
+      <figure class="g4" data-cursor><img data-content-src="gallery4" loading="lazy" decoding="async" src="https://www.interieurwerk-viersen.de/wp-content/uploads/go-x/u/9186504b-0784-4caf-99e7-9b8ebad2e08f/l0,t180,w1080,h719/image-768x511.png" alt="Planung"/><figcaption>Planung</figcaption></figure>
+      <figure class="g5" data-cursor><img data-content-src="gallery5" loading="lazy" decoding="async" src="https://www.interieurwerk-viersen.de/wp-content/uploads/go-x/u/84039b58-2b88-4c11-b305-eaf62ce35f6d/l76,t0,w1592,h1328/image-768x641.jpg" alt="Showroom"/><figcaption>Showroom</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- KONTAKT & SHOWROOM -->
+<section class="section section--cream2" id="kontakt">
+  <div class="container">
+    <div class="intro__head">
+      <div>
+        <span class="eyebrow reveal">Kontakt</span>
+        <h2 class="h-sec reveal reveal-d1">Sprechen wir über Ihr Projekt</h2>
+      </div>
+      <p class="lead reveal reveal-d2" data-content="contact_lead">Sie haben Fragen oder möchten einen Beratungstermin vereinbaren? Schreiben Sie uns — wir melden uns schnellstmöglich. Oder kommen Sie direkt im Showroom in der alten Designfabrik vorbei.</p>
+    </div>
+    <div class="contact">
+      <div class="contact__info reveal">
+        <ul class="contact__list">
+          <li><span class="contact__lbl">Adresse</span><span><span data-content-html="address">Grefrather Straße 120<br>41749 Viersen</span></span></li>
+          <li><span class="contact__lbl">Telefon</span><a href="tel:+4921623613160" data-cursor data-content="phone">+49 (0)2162 36 13 160</a></li>
+          <li><span class="contact__lbl">E-Mail</span><a href="mailto:info@interieurwerk-viersen.de" data-cursor data-content="email">info@interieurwerk-viersen.de</a></li>
+          <li><span class="contact__lbl">Öffnungszeiten</span><span>Mo–Fr 08:00–17:00 Uhr<br>Sa 09:00–12:00 Uhr · So geschlossen</span></li>
+        </ul>
+        <div class="contact__map">
+          <div class="map-consent" id="mapConsent">
+            <p><strong>Standort-Karte (Google Maps)</strong></p>
+            <p>Beim Laden der Karte werden Daten an Google übertragen. Details in der <a href="datenschutz.html" data-cursor>Datenschutzerklärung</a>.</p>
+            <button type="button" class="btn btn--mint" id="mapLoad" data-cursor>Karte laden <span class="arrow">→</span></button>
+          </div>
+        </div>
+      </div>
+      <form class="contact__form reveal reveal-d1" id="contactForm" novalidate>
+        <div class="field">
+          <label for="cf-name">Name *</label>
+          <input id="cf-name" name="name" type="text" required autocomplete="name" placeholder="Ihr Name">
+        </div>
+        <div class="field two">
+          <div class="field">
+            <label for="cf-mail">E-Mail</label>
+            <input id="cf-mail" name="email" type="email" autocomplete="email" placeholder="name@beispiel.de">
+          </div>
+          <div class="field">
+            <label for="cf-tel">Telefon</label>
+            <input id="cf-tel" name="tel" type="tel" autocomplete="tel" placeholder="optional">
+          </div>
+        </div>
+        <div class="field">
+          <label for="cf-msg">Ihre Nachricht</label>
+          <textarea id="cf-msg" name="message" rows="4" placeholder="Worum geht es? (z.B. Bad, Terrasse, Aufmaß-Termin …)"></textarea>
+        </div>
+        <label class="consent"><input type="checkbox" id="cf-consent" required> <span>Ich bin damit einverstanden, dass meine Angaben zur Kontaktaufnahme gespeichert und verarbeitet werden. *</span></label>
+        <button type="submit" class="btn btn--mint" data-cursor>Nachricht senden <span class="arrow">→</span></button>
+        <p class="form-note" id="formNote" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="termin">
+  <div class="cta__blob a"></div>
+  <div class="cta__blob b"></div>
+  <div class="container">
+    <h2 class="reveal">Bereit, Ihren<br><span class="em">Wohntraum</span> zu verwirklichen?</h2>
+    <p class="reveal reveal-d1" data-content="cta_sub">Vereinbaren Sie noch heute einen Beratungstermin mit unseren Fliesenexperten. Wir freuen uns auf Ihr Projekt.</p>
+    <div class="reveal reveal-d2" style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+      <a href="tel:+4921623613160" class="btn btn--mint" data-cursor data-content="phone">+49 (0)2162 36 13 160</a>
+      <a href="mailto:info@interieurwerk-viersen.de" class="btn btn--ghost" data-cursor style="color:#fff;border-color:rgba(255,255,255,.5)">E-Mail schreiben</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__top">
+      <div>
+        <div class="brand"><span class="dot"></span><span><b>Interieur</b><span class="light" style="color:#fff">WERK</span></span></div>
+        <p class="footer__about" data-content="about">Ihre Adresse in Viersen für hochwertige Fliesen, Naturstein, Parkett und Bodenbeläge. Beratung, Planung, Verlegung und Großhandel — alles aus einer Hand.</p>
+      </div>
+      <div>
+        <h5>Navigation</h5>
+        <ul>
+          <li><a href="#sortiment" data-cursor>Sortiment</a></li>
+          <li><a href="#service" data-cursor>Service</a></li>
+          <li><a href="#showroom" data-cursor>Showroom</a></li>
+          <li><a href="#team" data-cursor>Team</a></li>
+          <li><a href="#kontakt" data-cursor>Kontakt</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Öffnungszeiten</h5>
+        <ul>
+          <li>Mo – Fr: <span data-content="hours_week">08:00 – 17:00</span></li>
+          <li>Samstag: <span data-content="hours_sat">09:00 – 12:00</span></li>
+          <li>Sonntag: Geschlossen</li>
+        </ul>
+      </div>
+      <div>
+        <h5>Kontakt</h5>
+        <ul>
+          <li><span data-content-html="address">Grefrather Straße 120<br>41749 Viersen</span></li>
+          <li><a href="tel:+4921623613160" data-cursor data-content="phone">+49 (0)2162 36 13 160</a></li>
+          <li><a href="mailto:info@interieurwerk-viersen.de" data-cursor data-content="email">info@interieurwerk-viersen.de</a></li>
+        </ul>
+        <div class="footer__socials" style="margin-top:16px">
+          <a href="https://www.instagram.com/interieurwerk_viersen" target="_blank" rel="noopener" data-cursor>Instagram</a>
+          <a href="https://www.facebook.com/profile.php?id=100076227931705" target="_blank" rel="noopener" data-cursor>Facebook</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© <span id="year"></span> InterieurWERK Viersen · Christian Schummers · USt-ID DE330394285</span>
+      <span class="footer__legal"><a href="impressum.html" data-cursor>Impressum</a> · <a href="datenschutz.html" data-cursor>Datenschutz</a></span>
+    </div>
+  </div>
+</footer>
+
+<a href="#top" class="backtop" id="backtop" data-cursor aria-label="Nach oben">↑</a>
+
+<!-- LIBS (enhancement only — site works without them) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+<script>
+(function(){
+  "use strict";
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var fine = window.matchMedia("(hover:hover) and (pointer:fine)").matches;
+
+  /* ---------- PRELOADER ---------- */
+  var pre = document.getElementById("preloader");
+  var preCount = document.getElementById("preCount");
+  var n=0;
+  var ci = setInterval(function(){
+    n += Math.floor(Math.random()*12)+4; if(n>100)n=100;
+    if(preCount) preCount.textContent=n;
+    if(n>=100){clearInterval(ci);}
+  }, 90);
+  window.addEventListener("load", function(){
+    setTimeout(function(){
+      if(pre){pre.classList.add("done");}
+      document.body.classList.add("loaded");
+      startHero();
+    }, 1100);
+  });
+  // fallback if load is slow
+  setTimeout(function(){ if(pre && !pre.classList.contains("done")){pre.classList.add("done");startHero();} }, 3500);
+
+  function startHero(){
+    var hero=document.querySelector(".hero");
+    if(hero) hero.classList.add("in");
+  }
+
+  /* ---------- LENIS SMOOTH SCROLL ---------- */
+  var lenis=null;
+  if(window.Lenis && !reduce){
+    lenis=new Lenis({duration:1.1, easing:function(t){return Math.min(1,1.001-Math.pow(2,-10*t));}});
+    function raf(t){lenis.raf(t);requestAnimationFrame(raf);}
+    requestAnimationFrame(raf);
+    if(window.gsap && window.ScrollTrigger){
+      lenis.on("scroll", ScrollTrigger.update);
+    }
+  }
+
+  /* ---------- SMOOTH ANCHOR LINKS ---------- */
+  function absTop(el){var t=0;while(el){t+=el.offsetTop;el=el.offsetParent;}return t;}
+  function scrollToY(y){
+    y=Math.max(0,Math.round(y));
+    if(lenis){lenis.scrollTo(y,{duration:1.2});}
+    else{window.scrollTo({top:y,behavior:reduce?"auto":"smooth"});}
+  }
+  // Custom landing for Sortiment: heading just under header, first row of 3 tiles flush at bottom
+  function sortimentTarget(){
+    var sec=document.getElementById("sortiment");
+    var head=sec.querySelector(".intro__head");
+    var cards=sec.querySelectorAll(".cards .card");
+    var third=cards[2]||cards[cards.length-1];
+    var thirdBottom=absTop(third)+third.offsetHeight;   // layout position (ignores reveal transform)
+    var headTop=absTop(head);
+    var tilesTarget=thirdBottom-window.innerHeight+28;   // 3 tiles flush to bottom edge
+    var headTarget=headTop-84;                           // heading just below sticky header
+    return Math.max(tilesTarget,headTarget);
+  }
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener("click", function(e){
+      var id=a.getAttribute("href");
+      if(id.length<2) return;
+      var el=document.querySelector(id);
+      if(!el) return;
+      e.preventDefault();
+      closeMenu();
+      if(id==="#sortiment"){ scrollToY(sortimentTarget()); return; }
+      if(lenis){lenis.scrollTo(el,{offset:0,duration:1.2});}
+      else{el.scrollIntoView({behavior:reduce?"auto":"smooth"});}
+    });
+  });
+
+  /* ---------- REVEAL ON SCROLL (IntersectionObserver) ---------- */
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){en.target.classList.add("in");io.unobserve(en.target);}
+    });
+  },{threshold:0.14, rootMargin:"0px 0px -8% 0px"});
+  document.querySelectorAll(".reveal, .mask").forEach(function(el){io.observe(el);});
+
+  /* ---------- HEADER STATE ---------- */
+  var header=document.getElementById("header");
+  var hero=document.querySelector(".hero");
+  var lastY=0;
+  function onScroll(){
+    var y=window.pageYOffset||document.documentElement.scrollTop;
+    // solid bg after scrolling a bit
+    if(y>60){header.classList.add("solid");} else {header.classList.remove("solid");}
+    // hero mode (white text) only while over hero
+    var hb=hero?hero.offsetHeight-90:600;
+    if(y<hb){header.classList.add("hero-mode");} else {header.classList.remove("hero-mode");}
+    // hide on scroll down, show on scroll up
+    if(y>lastY && y>400 && !document.body.classList.contains("menu-open")){header.classList.add("hide");}
+    else{header.classList.remove("hide");}
+    lastY=y;
+    // back to top
+    var bt=document.getElementById("backtop");
+    if(y>700){bt.classList.add("show");}else{bt.classList.remove("show");}
+  }
+  window.addEventListener("scroll",onScroll,{passive:true});
+  onScroll();
+
+  /* ---------- MENU ---------- */
+  var menuBtn=document.getElementById("menuBtn");
+  var menuLabel=document.getElementById("menuLabel");
+  function openMenu(){document.body.classList.add("menu-open","locked");menuLabel.textContent="Schließen";if(lenis)lenis.stop();}
+  function closeMenu(){document.body.classList.remove("menu-open","locked");menuLabel.textContent="Menü";if(lenis)lenis.start();}
+  menuBtn.addEventListener("click",function(){
+    if(document.body.classList.contains("menu-open"))closeMenu();else openMenu();
+  });
+  document.addEventListener("keydown",function(e){if(e.key==="Escape")closeMenu();});
+
+  /* ---------- CUSTOM CURSOR ---------- */
+  if(fine && !reduce){
+    var cursor=document.getElementById("cursor");
+    var dot=document.getElementById("cursorDot");
+    var cx=window.innerWidth/2, cy=window.innerHeight/2, dx=cx, dy=cy, tx=cx, ty=cy;
+    window.addEventListener("mousemove",function(e){tx=e.clientX;ty=e.clientY;dot.style.transform="translate("+tx+"px,"+ty+"px) translate(-50%,-50%)";});
+    function loop(){cx+=(tx-cx)*.18;cy+=(ty-cy)*.18;cursor.style.transform="translate("+cx+"px,"+cy+"px) translate(-50%,-50%)";requestAnimationFrame(loop);}
+    loop();
+    document.querySelectorAll("[data-cursor]").forEach(function(el){
+      el.addEventListener("mouseenter",function(){cursor.classList.add("grow");});
+      el.addEventListener("mouseleave",function(){cursor.classList.remove("grow");});
+    });
+    document.addEventListener("mousedown",function(){cursor.classList.add("dot");});
+    document.addEventListener("mouseup",function(){cursor.classList.remove("dot");});
+  } else {
+    var c=document.getElementById("cursor"), cd=document.getElementById("cursorDot");
+    if(c)c.style.display="none"; if(cd)cd.style.display="none";
+  }
+
+  /* ---------- COUNT UP ---------- */
+  var counters=document.querySelectorAll(".stat__num[data-count]");
+  var cObs=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(!en.isIntersecting)return;
+      var el=en.target; cObs.unobserve(el);
+      if(el.dataset.text){ // special (∞)
+        el.firstChild.nodeValue=el.dataset.text; return;
+      }
+      var target=parseInt(el.dataset.count,10), suf=el.dataset.suffix||"", cur=0;
+      var step=Math.max(1,Math.floor(target/40));
+      var t=setInterval(function(){
+        cur+=step; if(cur>=target){cur=target;clearInterval(t);}
+        el.firstChild.nodeValue=cur;
+      },28);
+    });
+  },{threshold:.5});
+  counters.forEach(function(el){cObs.observe(el);});
+
+  /* ---------- PARALLAX (GSAP enhancement) ---------- */
+  if(window.gsap && window.ScrollTrigger && !reduce){
+    gsap.registerPlugin(ScrollTrigger);
+    // hero image parallax
+    var hm=document.querySelector("#heroMedia img");
+    if(hm){
+      gsap.to(hm,{yPercent:18,ease:"none",scrollTrigger:{trigger:".hero",start:"top top",end:"bottom top",scrub:true}});
+    }
+    // service media subtle parallax
+    gsap.utils.toArray(".srv__media img").forEach(function(img){
+      gsap.fromTo(img,{yPercent:-6},{yPercent:6,ease:"none",scrollTrigger:{trigger:img,start:"top bottom",end:"bottom top",scrub:true}});
+    });
+    // gallery parallax
+    gsap.utils.toArray(".gallery figure img").forEach(function(img){
+      gsap.fromTo(img,{yPercent:-5},{yPercent:5,ease:"none",scrollTrigger:{trigger:img.parentElement,start:"top bottom",end:"bottom top",scrub:true}});
+    });
+  }
+
+  /* ---------- CONTACT FORM (mailto compose, kein Backend nötig) ---------- */
+  var cform=document.getElementById("contactForm");
+  if(cform){
+    cform.addEventListener("submit",function(e){
+      e.preventDefault();
+      var note=document.getElementById("formNote");
+      var name=(document.getElementById("cf-name").value||"").trim();
+      var mail=(document.getElementById("cf-mail").value||"").trim();
+      var tel=(document.getElementById("cf-tel").value||"").trim();
+      var msg=(document.getElementById("cf-msg").value||"").trim();
+      var consent=document.getElementById("cf-consent").checked;
+      if(!name){note.className="form-note err";note.textContent="Bitte geben Sie Ihren Namen an.";return;}
+      if(!mail && !tel){note.className="form-note err";note.textContent="Bitte hinterlassen Sie E-Mail oder Telefon, damit wir Sie erreichen können.";return;}
+      if(!consent){note.className="form-note err";note.textContent="Bitte stimmen Sie der Verarbeitung Ihrer Angaben zu.";return;}
+      var body="Name: "+name+"\n"+(mail?"E-Mail: "+mail+"\n":"")+(tel?"Telefon: "+tel+"\n":"")+"\nNachricht:\n"+(msg||"-")+"\n";
+      var url="mailto:info@interieurwerk-viersen.de?subject="+encodeURIComponent("Anfrage über die Website – "+name)+"&body="+encodeURIComponent(body);
+      window.location.href=url;
+      note.className="form-note ok";note.textContent="Ihr E-Mail-Programm öffnet sich mit der fertigen Nachricht – bitte nur noch auf „Senden“ klicken.";
+    });
+  }
+
+  /* ---------- GOOGLE MAPS – erst nach Einwilligung laden (DSGVO) ---------- */
+  var mapLoad=document.getElementById("mapLoad");
+  if(mapLoad){
+    mapLoad.addEventListener("click",function(){
+      var wrap=mapLoad.closest(".contact__map");
+      var ifr=document.createElement("iframe");
+      ifr.title="Standort InterieurWERK Viersen, Grefrather Straße 120";
+      ifr.src="https://www.google.com/maps?q=Grefrather%20Stra%C3%9Fe%20120%2C%2041749%20Viersen&output=embed";
+      ifr.loading="lazy";
+      ifr.referrerPolicy="no-referrer-when-downgrade";
+      ifr.setAttribute("style","width:100%;height:100%;border:0;");
+      wrap.innerHTML="";
+      wrap.appendChild(ifr);
+    });
+  }
+
+  /* ---------- YEAR ---------- */
+  var y=document.getElementById("year"); if(y)y.textContent=new Date().getFullYear();
+})();
+</script>
+<script>
+(function(){
+ function applyGallery(arr){var box=document.getElementById('iwGallery');if(!box||!Array.isArray(arr))return;box.classList.add('gallery--dyn');box.innerHTML='';arr.forEach(function(it){var f=document.createElement('figure');f.setAttribute('data-cursor','');var im=document.createElement('img');im.loading='lazy';im.src=it.src||'';im.alt=it.cat||'Projekt';f.appendChild(im);if(it.cat){var c=document.createElement('figcaption');c.textContent=it.cat;f.appendChild(c);}box.appendChild(f);});}
+ function apply(c){if(!c)return;for(var k in c){var v=c[k];if(k==='gallery'){applyGallery(v);continue;}
+ document.querySelectorAll('[data-content="'+k+'"]').forEach(function(el){el.textContent=v;});
+ document.querySelectorAll('[data-content-html="'+k+'"]').forEach(function(el){el.innerHTML=v;});
+ document.querySelectorAll('[data-content-src="'+k+'"]').forEach(function(el){el.setAttribute('src',v);});}}
+ try{var ls=localStorage.getItem('iw_content');if(ls)apply(JSON.parse(ls));}catch(e){}
+ fetch('content.json',{cache:'no-store'}).then(function(r){return r.json();}).then(apply).catch(function(){});
+ window.addEventListener('message',function(e){if(e.data&&e.data.type==='iw-content')apply(e.data.data);});
+})();
+</script>
+</body>
+</html>
