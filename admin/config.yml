@@ -1,0 +1,51 @@
+# ===========================================================
+#  Sveltia CMS – Konfiguration für InterieurWERK
+#  -> Vor dem ersten Start: bei "repo:" euren GitHub-Pfad eintragen.
+# ===========================================================
+
+backend:
+  name: github
+  repo: mertimann/interieurwerk-website
+  branch: main
+  # Für den Kunden-Login (GitHub-OAuth über kostenlosen Cloudflare-Worker) später diese Zeile aktivieren:
+  # base_url: https://DEIN-WORKER.workers.dev
+
+# Hochgeladene Fotos landen als echte Dateien hier im Projekt:
+media_folder: "uploads"
+public_folder: "/uploads"
+
+# Sprache des Editors
+locale: de
+
+collections:
+  - name: inhalte
+    label: "Website-Inhalte"
+    delete: false
+    files:
+      - name: startseite
+        label: "Inhalte der Website"
+        file: "content.json"
+        format: json
+        fields:
+          - { label: "Obertitel (Hero)", name: hero_eyebrow, widget: string }
+          - { label: "Unterzeile (Hero)", name: hero_sub, widget: text }
+          - { label: "Hauptbild", name: hero_image, widget: image }
+          - { label: "Telefon", name: phone, widget: string }
+          - { label: "E-Mail", name: email, widget: string }
+          - { label: "Adresse", name: address, widget: string, hint: "Zeilenumbruch mit <br> trennen, z. B. Grefrather Straße 120<br>41749 Viersen" }
+          - { label: "Öffnungszeiten Mo–Fr", name: hours_week, widget: string }
+          - { label: "Öffnungszeiten Samstag", name: hours_sat, widget: string }
+          - { label: "Kontakt-Intro", name: contact_lead, widget: text }
+          - { label: "Abschluss-Aufruf", name: cta_sub, widget: text }
+          - { label: "Über uns (Fußzeile)", name: about, widget: text }
+          - label: "Galerie"
+            name: gallery
+            widget: list
+            label_singular: "Foto"
+            summary: "{{fields.cat}}"
+            fields:
+              - { label: "Foto", name: src, widget: image }
+              - label: "Sparte"
+                name: cat
+                widget: select
+                options: ["Fliesen", "Naturstein", "Parkett", "Bäder", "Showroom", "Sonstiges"]
