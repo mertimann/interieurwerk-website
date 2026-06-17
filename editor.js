@@ -82,13 +82,17 @@
     box.innerHTML = "";
     team.forEach(function(m,i){
       var a = document.createElement("article"); a.className="member iw-edit-card";
-      var photo = m.img ? '<img src="'+esc(m.img)+'" alt="'+esc(m.name)+'"/>' :
+      var pos = (typeof m.pos === "number") ? m.pos : 22;
+      var photo = m.img ? '<img src="'+esc(m.img)+'" alt="'+esc(m.name)+'" style="object-position:center '+pos+'%"/>' :
         '<div class="iw-ph"><span>Foto<br>hochladen</span></div>';
       var badge = '<span class="badge iw-ed" data-f="badge" data-i="'+i+'" contenteditable="true">'+esc(m.badge||"")+'</span>';
       a.innerHTML =
         '<button class="iw-del" title="Person entfernen" data-del="'+i+'">×</button>' +
-        '<div class="member__img" data-photo="'+i+'">'+photo+
-          '<div class="iw-photo-edit"><span>'+(m.img?"Foto ändern":"Foto wählen")+'</span></div>'+ badge +
+        '<div class="member__img iw-photo" data-i="'+i+'">'+photo+
+          '<div class="iw-photo-tools">'+
+            '<span class="iw-pos-hint">'+(m.img?"↕ ziehen = ausrichten":"")+'</span>'+
+            '<button class="iw-photo-up" data-up="'+i+'">'+(m.img?"Foto ändern":"Foto wählen")+'</button>'+
+          '</div>'+ badge +
         '</div>' +
         '<h3 class="iw-ed" data-f="name" data-i="'+i+'" contenteditable="true">'+esc(m.name)+'</h3>' +
         '<div class="role iw-ed" data-f="role" data-i="'+i+'" contenteditable="true">'+esc(m.role)+'</div>' +
@@ -108,11 +112,30 @@
       el.addEventListener("paste", function(e){ e.preventDefault(); var t=(e.clipboardData||window.clipboardData).getData("text"); document.execCommand("insertText",false,t); });
       el.addEventListener("keydown", function(e){ if(e.key==="Enter" && el.tagName!=="P"){ e.preventDefault(); el.blur(); } });
     });
-    box.querySelectorAll("[data-photo]").forEach(function(el){
-      el.addEventListener("click", function(e){
-        if (e.target.closest(".iw-ed")) return; // Badge-Klick nicht abfangen
-        pendingIdx = +el.getAttribute("data-photo"); fileInput.value=""; fileInput.click();
-      });
+    box.querySelectorAll(".iw-photo").forEach(function(cell){
+      var i = +cell.getAttribute("data-i");
+      var img = cell.querySelector("img");
+      if (img) {
+        var dragging=false, startY=0, startPos=22;
+        cell.addEventListener("pointerdown", function(e){
+          if (document.body.classList.contains("iw-preview")) return;
+          if (e.target.closest(".iw-photo-up") || e.target.closest(".iw-ed")) return;
+          dragging=true; startY=e.clientY; startPos=(typeof team[i].pos==="number"?team[i].pos:22);
+          try{ cell.setPointerCapture(e.pointerId); }catch(_){}
+          e.preventDefault();
+        });
+        cell.addEventListener("pointermove", function(e){
+          if(!dragging) return;
+          var p = Math.max(0, Math.min(100, Math.round(startPos - (e.clientY-startY)*0.25)));
+          team[i].pos = p; img.style.objectPosition = "center "+p+"%";
+        });
+        function end(){ if(dragging){ dragging=false; markDirty(); } }
+        cell.addEventListener("pointerup", end);
+        cell.addEventListener("pointercancel", end);
+      }
+    });
+    box.querySelectorAll(".iw-photo-up").forEach(function(b){
+      b.addEventListener("click", function(e){ e.stopPropagation(); pendingIdx=+b.getAttribute("data-up"); fileInput.value=""; fileInput.click(); });
     });
     box.querySelectorAll("[data-del]").forEach(function(b){
       b.addEventListener("click", function(){ var i=+b.getAttribute("data-del"); if(confirm('„'+(team[i].name||"Person")+'" entfernen?')){ team.splice(i,1); markDirty(); renderTeam(); } });
@@ -174,6 +197,7 @@
     var images=[];
     var outTeam = team.map(function(m,i){
       var mm={ name:m.name||"", role:m.role||"", badge:m.badge||"", desc:m.desc||"", img:m.img||"" };
+      if(typeof m.pos==="number") mm.pos=m.pos;
       if(mm.img.indexOf("data:")===0){
         var comma=mm.img.indexOf(","), meta=mm.img.slice(5,comma);
         var ext = meta.indexOf("png")>-1 ? "png" : "jpg";
@@ -217,15 +241,19 @@
     "body.iw-editing:not(.iw-preview) #iwTeam .iw-ed:hover{background:#BCEEE3}" +
     "body.iw-editing:not(.iw-preview) #iwTeam .iw-ed:focus{background:#fff;box-shadow:0 0 0 2px #6FE0C6}" +
     "#iwTeam .iw-ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#7d968f;font-size:13px;text-align:center}" +
-    "#iwTeam .iw-photo-edit{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(15,77,66,0);opacity:0;transition:.2s;cursor:pointer}" +
-    "body.iw-editing:not(.iw-preview) #iwTeam .member__img:hover .iw-photo-edit{opacity:1;background:rgba(15,77,66,.42)}" +
-    "#iwTeam .iw-photo-edit span{background:#fff;color:#0F4D42;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13px;padding:8px 14px;border-radius:100px}" +
+    "body.iw-editing:not(.iw-preview) #iwTeam .iw-photo{cursor:grab}" +
+    "body.iw-editing:not(.iw-preview) #iwTeam .iw-photo:active{cursor:grabbing}" +
+    "#iwTeam .iw-photo img{touch-action:none;user-select:none;-webkit-user-drag:none}" +
+    "#iwTeam .iw-photo-tools{position:absolute;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 10px;opacity:0;transition:.2s;background:linear-gradient(transparent,rgba(15,77,66,.6))}" +
+    "body.iw-editing:not(.iw-preview) #iwTeam .member__img:hover .iw-photo-tools{opacity:1}" +
+    "#iwTeam .iw-pos-hint{color:#fff;font-size:11px;font-weight:600;font-family:'Space Grotesk',sans-serif;text-shadow:0 1px 2px rgba(0,0,0,.4)}" +
+    "#iwTeam .iw-photo-up{background:#fff;color:#0F4D42;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:12px;padding:6px 11px;border:none;border-radius:100px;cursor:pointer;white-space:nowrap}" +
     "#iwTeam .iw-del{position:absolute;top:-9px;right:-9px;width:28px;height:28px;border-radius:50%;border:none;background:#fff;color:#c0392b;box-shadow:0 4px 12px rgba(0,0,0,.18);cursor:pointer;font-size:16px;line-height:1;opacity:0;transition:.15s;z-index:3}" +
     "body.iw-editing:not(.iw-preview) #iwTeam .member:hover .iw-del{opacity:1}" +
     "#iwTeam .iw-addcard{border:2px dashed #6FE0C6;border-radius:18px;min-height:220px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#1E8A73;font-family:'Space Grotesk',sans-serif;font-weight:600;cursor:pointer;background:transparent}" +
     "#iwTeam .iw-addcard:hover{background:#BCEEE3}" +
     "#iwTeam .iw-plus{font-size:28px;line-height:1;margin-bottom:6px}" +
-    "body.iw-preview #iwTeam .iw-del,body.iw-preview #iwTeam .iw-photo-edit,body.iw-preview #iwTeam .iw-addcard{display:none!important}" +
+    "body.iw-preview #iwTeam .iw-del,body.iw-preview #iwTeam .iw-photo-tools,body.iw-preview #iwTeam .iw-addcard{display:none!important}" +
     /* untere Leiste */
     ".iw-bar{position:fixed;left:0;right:0;bottom:0;z-index:99990;background:#0F4D42;color:#EAF8F3;box-shadow:0 -6px 24px rgba(0,0,0,.2);font-family:Inter,system-ui,sans-serif}" +
     ".iw-bar-in{max-width:1180px;margin:0 auto;display:flex;gap:14px;align-items:center;justify-content:space-between;padding:12px 22px;flex-wrap:wrap}" +
