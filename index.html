@@ -1154,6 +1154,40 @@ body.menu-open .overlay__side{opacity:1;}
  try{var ls=localStorage.getItem('iw_content');if(ls)apply(JSON.parse(ls));}catch(e){}
  fetch('content.json',{cache:'no-store'}).then(function(r){return r.json();}).then(apply).catch(function(){});
  window.addEventListener('message',function(e){if(e.data&&e.data.type==='iw-content')apply(e.data.data);});
+
+ /* ---- Klick-zum-Bearbeiten (nur in der CMS-Vorschau) ---- */
+ var PREVIEW = /[?&]cmspreview=1/.test(location.search);
+ if (PREVIEW) {
+   var st = document.createElement('style');
+   st.textContent = '[data-content],[data-content-html],[data-content-src],#iwGallery{cursor:pointer;}'
+     + '.iw-edit-hi{outline:2px dashed #6FE0C6 !important;outline-offset:4px !important;border-radius:4px;}'
+     + '.iw-edit-tip{position:fixed;z-index:99999;top:14px;left:50%;transform:translateX(-50%);background:#0F4D42;color:#EAF8F3;font:600 13px/1.2 Inter,system-ui,sans-serif;padding:8px 14px;border-radius:999px;pointer-events:none;box-shadow:0 6px 20px rgba(0,0,0,.25);}';
+   document.head.appendChild(st);
+   var tip = document.createElement('div');
+   tip.className = 'iw-edit-tip';
+   tip.textContent = 'Tipp: Auf einen Bereich klicken, um ihn links zu bearbeiten';
+   document.body.appendChild(tip);
+   setTimeout(function(){ if(tip) tip.style.display='none'; }, 4000);
+   function iwHost(t){ return t.closest('[data-content],[data-content-html],[data-content-src]') || t.closest('#iwGallery'); }
+   function iwKey(t){
+     var el = t.closest('[data-content],[data-content-html],[data-content-src]');
+     var k = el ? (el.getAttribute('data-content')||el.getAttribute('data-content-html')||el.getAttribute('data-content-src')) : null;
+     if (k && /^gallery/.test(k)) k = 'gallery';
+     if (!k && t.closest('#iwGallery')) k = 'gallery';
+     return k;
+   }
+   document.addEventListener('mousemove', function(e){
+     var host = iwHost(e.target);
+     var cur = document.querySelector('.iw-edit-hi');
+     if (cur && cur !== host) cur.classList.remove('iw-edit-hi');
+     if (host) host.classList.add('iw-edit-hi');
+   });
+   document.addEventListener('click', function(e){
+     var k = iwKey(e.target);
+     if (k) { e.preventDefault(); e.stopPropagation(); try{ (window.top||window.parent).postMessage({type:'iw-edit',key:k},'*'); }catch(_){ } }
+     else if (e.target.closest('a')) { e.preventDefault(); }
+   }, true);
+ }
 })();
 </script>
 </body>
