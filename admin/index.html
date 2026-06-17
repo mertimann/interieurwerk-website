@@ -60,14 +60,48 @@
           );
         } catch (e) {}
       },
+      focusField: function (key) {
+        var LABELS = {
+          hero_eyebrow: 'Obertitel (Hero)', hero_sub: 'Unterzeile (Hero)', hero_image: 'Hauptbild',
+          phone: 'Telefon', email: 'E-Mail', address: 'Adresse',
+          hours_week: 'Öffnungszeiten Mo–Fr', hours_sat: 'Öffnungszeiten Samstag',
+          contact_lead: 'Kontakt-Intro', cta_sub: 'Abschluss-Aufruf', about: 'Über uns (Fußzeile)',
+          gallery: 'Galerie'
+        };
+        var want = (LABELS[key] || '').trim().toLowerCase();
+        if (!want) return;
+        var target = null, labels = document.querySelectorAll('label');
+        for (var i = 0; i < labels.length; i++) {
+          var tx = (labels[i].textContent || '').trim().toLowerCase();
+          if (tx === want || tx.indexOf(want) === 0) { target = labels[i]; break; }
+        }
+        if (!target) return;
+        var box = target.closest('div') || target.parentElement;
+        if (!document.getElementById('iw-edit-style')) {
+          var s = document.createElement('style'); s.id = 'iw-edit-style';
+          s.textContent = '@keyframes iwflash{0%{box-shadow:0 0 0 0 rgba(15,77,66,0);}15%{box-shadow:0 0 0 3px rgba(111,224,198,.95);}100%{box-shadow:0 0 0 0 rgba(111,224,198,0);}}.iw-flash{animation:iwflash 1.7s ease-out;border-radius:6px;}';
+          document.head.appendChild(s);
+        }
+        var hl = box || target;
+        try { hl.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (e) { hl.scrollIntoView(); }
+        hl.classList.remove('iw-flash'); void hl.offsetWidth; hl.classList.add('iw-flash');
+        var input = box ? box.querySelector('input,textarea,select,[contenteditable="true"]') : null;
+        if (input) { setTimeout(function () { try { input.focus(); } catch (e) {} }, 350); }
+      },
       componentDidMount: function () {
         var self = this;
         // mehrfach nachfeuern, bis der iframe geladen + Listener bereit ist
         this._timer = setInterval(function () { self.post(); }, 700);
         setTimeout(function () { clearInterval(self._timer); }, 6000);
+        // Klick aus der Vorschau -> passendes Feld fokussieren
+        this._onEdit = function (e) { if (e && e.data && e.data.type === 'iw-edit') self.focusField(e.data.key); };
+        window.addEventListener('message', this._onEdit);
         this.post();
       },
-      componentWillUnmount: function () { if (this._timer) clearInterval(this._timer); },
+      componentWillUnmount: function () {
+        if (this._timer) clearInterval(this._timer);
+        if (this._onEdit) window.removeEventListener('message', this._onEdit);
+      },
       componentDidUpdate: function () { this.post(); },
       render: function () {
         var self = this;
