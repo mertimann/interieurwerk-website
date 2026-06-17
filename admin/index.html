@@ -9,5 +9,85 @@
 <body>
   <!-- Decap CMS – Login per E-Mail/Passwort über DecapBridge. Konfiguration in config.yml. -->
   <script src="https://unpkg.com/decap-cms@^3.8.3/dist/decap-cms.js"></script>
+
+  <!-- Echte Live-Vorschau: rendert die echte Website und injiziert die Inhalte live -->
+  <script>
+  (function () {
+    if (!window.CMS || typeof createClass === 'undefined' || typeof h === 'undefined') return;
+
+    function resolveAsset(value, getAsset) {
+      if (!value) return '';
+      try {
+        var a = getAsset(value);
+        return a ? a.toString() : value;
+      } catch (e) { return value; }
+    }
+
+    function buildContent(entry, getAsset) {
+      var data = entry.get('data');
+      function g(k) { var v = data.get(k); return (v === undefined || v === null) ? '' : v; }
+      var gallery = [];
+      var gl = data.get('gallery');
+      if (gl && gl.toJS) {
+        gl.toJS().forEach(function (it) {
+          if (!it) return;
+          gallery.push({ src: resolveAsset(it.src, getAsset), cat: it.cat || '' });
+        });
+      }
+      return {
+        hero_eyebrow: g('hero_eyebrow'),
+        hero_sub: g('hero_sub'),
+        hero_image: resolveAsset(g('hero_image'), getAsset),
+        phone: g('phone'),
+        email: g('email'),
+        address: g('address'),
+        hours_week: g('hours_week'),
+        hours_sat: g('hours_sat'),
+        contact_lead: g('contact_lead'),
+        cta_sub: g('cta_sub'),
+        about: g('about'),
+        gallery: gallery
+      };
+    }
+
+    var LivePreview = createClass({
+      post: function () {
+        if (!this.frame || !this.frame.contentWindow) return;
+        try {
+          this.frame.contentWindow.postMessage(
+            { type: 'iw-content', data: buildContent(this.props.entry, this.props.getAsset) },
+            '*'
+          );
+        } catch (e) {}
+      },
+      componentDidMount: function () {
+        var self = this;
+        // mehrfach nachfeuern, bis der iframe geladen + Listener bereit ist
+        this._timer = setInterval(function () { self.post(); }, 700);
+        setTimeout(function () { clearInterval(self._timer); }, 6000);
+        this.post();
+      },
+      componentWillUnmount: function () { if (this._timer) clearInterval(this._timer); },
+      componentDidUpdate: function () { this.post(); },
+      render: function () {
+        var self = this;
+        return h('iframe', {
+          src: '/?cmspreview=1',
+          ref: function (el) { self.frame = el; },
+          onLoad: function () { self.post(); },
+          style: {
+            width: '100%',
+            height: '100vh',
+            border: '0',
+            display: 'block',
+            background: '#ffffff'
+          }
+        });
+      }
+    });
+
+    CMS.registerPreviewTemplate('inhalte', LivePreview);
+  })();
+  </script>
 </body>
 </html>
