@@ -105,7 +105,34 @@
       e.preventDefault(); e.stopPropagation();
       pendingImgEl = el; imgInput.value=""; imgInput.click();
     });
+    // Bilder, die als Hintergrund hinter Text/Overlays liegen (z. B. Sortiment-Karten),
+    // sind nicht direkt anklickbar -> zusätzlich einen sichtbaren "Bild ändern"-Button anbieten.
+    if (iwImgCovered(el)) addImgButton(el);
     IMGED.push({ el:el, key:key });
+  }
+  function iwNegZ(el){ if(!el) return false; var z=getComputedStyle(el).zIndex; return z!=="auto" && parseInt(z,10)<0; }
+  function iwImgCovered(img){ return iwNegZ(img) || iwNegZ(img.parentElement); }
+  function iwImgAnchor(img){
+    var el = img.parentElement;
+    while (el && el!==document.body){
+      var cs = getComputedStyle(el);
+      if (cs.position!=="static"){ var z=cs.zIndex; if(z==="auto"||parseInt(z,10)>=0) return el; }
+      el = el.parentElement;
+    }
+    return img.parentElement || img;
+  }
+  function addImgButton(img){
+    var anchor = iwImgAnchor(img); if(!anchor) return;
+    anchor.classList.add("iw-imgbtn-anchor");
+    if (getComputedStyle(anchor).position==="static") anchor.style.position="relative";
+    var b = document.createElement("button");
+    b.type="button"; b.className="iw-imgbtn"; b.textContent="Bild ändern";
+    b.addEventListener("click", function(e){
+      if (document.body.classList.contains("iw-preview")) return;
+      e.preventDefault(); e.stopPropagation();
+      pendingImgEl = img; imgInput.value=""; imgInput.click();
+    });
+    anchor.appendChild(b);
   }
   function onImgFile(){
     var f = imgInput.files && imgInput.files[0]; if(!f || !pendingImgEl) return;
@@ -310,6 +337,10 @@
     "body.iw-editing:not(.iw-preview) .iw-gen-ed:focus{background:rgba(255,255,255,.92);box-shadow:0 0 0 2px #6FE0C6}" +
     "body.iw-editing:not(.iw-preview) .iw-gen-img{cursor:pointer;outline-offset:2px;transition:outline .12s}" +
     "body.iw-editing:not(.iw-preview) .iw-gen-img:hover{outline:3px solid #6FE0C6}" +
+    /* Sichtbarer Button für verdeckte/Hintergrund-Bilder (z. B. Sortiment) */
+    ".iw-imgbtn{position:absolute;top:10px;right:10px;z-index:6;background:#fff;color:#0F4D42;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:12px;padding:7px 13px;border:none;border-radius:100px;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.22);opacity:.92;transition:opacity .15s,transform .15s}" +
+    "body.iw-editing:not(.iw-preview) .iw-imgbtn-anchor:hover .iw-imgbtn{opacity:1;transform:translateY(-1px)}" +
+    "body.iw-preview .iw-imgbtn,body:not(.iw-editing) .iw-imgbtn{display:none!important}" +
     "#iwTeam .iw-edit-card{position:relative}" +
     "#iwTeam .iw-ed{outline:none;border-radius:6px;cursor:text;transition:background .15s,box-shadow .15s}" +
     "body.iw-editing:not(.iw-preview) #iwTeam .iw-ed:hover{background:#BCEEE3}" +
