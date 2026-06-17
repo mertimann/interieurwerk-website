@@ -31,5 +31,35 @@
   "hours_sat": "09:00 – 13:00",
   "contact_lead": "Sie haben Fragen oder möchten einen Beratungstermin vereinbaren? Schreiben Sie uns — wir melden uns schnellstmöglich. Oder kommen Sie direkt im Showroom in der alten Designfabrik vorbei.",
   "hero_sub": "Ihre Adresse für hochwertige Materialien, mit denen Sie Böden und Wände in Ihrem Zuhause neu gestalten — von der Beratung bis zur fachgerechten Verlegung.",
-  "email": "info@interieurwerk-viersen.de"
+  "email": "info@interieurwerk-viersen.de",
+  "team": [
+    {
+      "name": "Christian Schummers",
+      "role": "Inhaber",
+      "badge": "25+ Jahre",
+      "desc": "Mit über 25 Jahren Erfahrung in der Fliesenbranche ein Ideengeber und Experte auf dem Gebiet der Bodenbeläge.",
+      "img": "https://www.interieurwerk-viersen.de/wp-content/uploads/go-x/u/71fd9304-aae7-490f-b448-ba1bb829a9ad/l0,t0,w1080,h1080/image-384x384.png"
+    },
+    {
+      "name": "Stefan Kreuer",
+      "role": "Kundenberater",
+      "badge": "",
+      "desc": "Seit 25 Jahren an Christians Seite. Bietet mit enormem Fachwissen professionelle Beratung und erstklassigen Service.",
+      "img": "https://www.interieurwerk-viersen.de/wp-content/uploads/go-x/u/be736284-11f0-486d-8e32-24456a467694/l0,t0,w1080,h1080/image-384x384.png"
+    },
+    {
+      "name": "Andreas Körl",
+      "role": "Leiter Fliesenverlegung",
+      "badge": "",
+      "desc": "Ausgebildeter Fliesen-, Platten- und Mosaiklegermeister mit langjähriger Erfahrung — und Ausbilder im Betrieb.",
+      "img": "/uploads/team-1781707043380-2.jpg"
+    },
+    {
+      "name": "Unser Verlegeteam",
+      "role": "Fliesen- & Bodenleger",
+      "badge": "",
+      "desc": "Ein kleines, professionelles Team mit langjähriger Erfahrung, spezialisiert darauf, individuelle Wünsche auf höchstem Niveau umzusetzen.",
+      "img": "https://www.interieurwerk-viersen.de/wp-content/uploads/go-x/u/cbe6d17a-6791-44d5-8809-105c8313c9ad/l200,t0,w1200,h1200/image-384x384.jpg"
+    }
+  ]
 }
