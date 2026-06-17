@@ -26,6 +26,7 @@
   ];
 
   var CONTENT = {}, team = [], dirty = false, pendingIdx = null, fileInput;
+  var imgInput, pendingImgEl = null, TEXTED = [], IMGED = [], imgCounter = 0;
 
   injectCSS();
   gate(start);
@@ -60,13 +61,69 @@
     fileInput.addEventListener("change", onFile);
     document.body.appendChild(fileInput);
 
+    imgInput = document.createElement("input");
+    imgInput.type="file"; imgInput.accept="image/*"; imgInput.style.display="none";
+    imgInput.addEventListener("change", onImgFile);
+    document.body.appendChild(imgInput);
+
     document.body.classList.add("iw-editing");
     fetchContent().then(function(){
       renderTeam();
+      enhanceGeneric();   // alle übrigen Texte + Bilder editierbar machen
       buildBar();
-      // sanft zum Team scrollen
-      var t = $("iwTeam"); if (t) setTimeout(function(){ t.scrollIntoView({behavior:"smooth", block:"center"}); }, 400);
     });
+  }
+
+  /* ---------- Generisch: alle Texte + Bilder editierbar ---------- */
+  function enhanceGeneric(){
+    TEXTED = []; IMGED = [];
+    document.querySelectorAll("[data-content]").forEach(function(el){ regText(el, el.getAttribute("data-content"), false); });
+    document.querySelectorAll("[data-content-html]").forEach(function(el){ regText(el, el.getAttribute("data-content-html"), true); });
+    (window.iwEditableNodes ? window.iwEditableNodes() : []).forEach(function(el,i){ regText(el, "t"+i, el.children.length>0); });
+    document.querySelectorAll("[data-content-src]").forEach(function(el){ regImg(el, el.getAttribute("data-content-src")); });
+    (window.iwImageNodes ? window.iwImageNodes() : []).forEach(function(el,i){ regImg(el, "img"+i); });
+  }
+  function regText(el, key, html){
+    if (el.closest("#iwTeam") || el.closest("#iwGallery")) return;
+    if (el.getAttribute("data-iwbound")) return;
+    el.setAttribute("data-iwbound","1");
+    el.classList.add("iw-gen-ed");
+    el.setAttribute("contenteditable","true");
+    el.addEventListener("input", markDirty);
+    el.addEventListener("paste", function(e){ e.preventDefault(); var t=(e.clipboardData||window.clipboardData).getData("text"); document.execCommand("insertText",false,t); });
+    el.addEventListener("keydown", function(e){ if(e.key==="Enter" && !html && el.tagName!=="P"){ e.preventDefault(); el.blur(); } });
+    TEXTED.push({ el:el, key:key, html:html });
+  }
+  function regImg(el, key){
+    if (el.closest("#iwTeam") || el.closest("#iwGallery")) return;
+    if (el.getAttribute("data-iwbound")) return;
+    el.setAttribute("data-iwbound","1");
+    el.classList.add("iw-gen-img");
+    el.setAttribute("title","Klicken, um das Bild zu ersetzen");
+    el.addEventListener("click", function(e){
+      if (document.body.classList.contains("iw-preview")) return;
+      e.preventDefault(); e.stopPropagation();
+      pendingImgEl = el; imgInput.value=""; imgInput.click();
+    });
+    IMGED.push({ el:el, key:key });
+  }
+  function onImgFile(){
+    var f = imgInput.files && imgInput.files[0]; if(!f || !pendingImgEl) return;
+    var elRef = pendingImgEl; pendingImgEl = null;
+    var r = new FileReader();
+    r.onload = function(ev){
+      var img = new Image();
+      img.onload = function(){
+        var max=1600, w=img.width, h=img.height;
+        if(w>max||h>max){ if(w>=h){ h=Math.round(h*max/w); w=max; } else { w=Math.round(w*max/h); h=max; } }
+        var c=document.createElement("canvas"); c.width=w; c.height=h;
+        c.getContext("2d").drawImage(img,0,0,w,h);
+        elRef.setAttribute("src", c.toDataURL("image/jpeg", 0.85));
+        markDirty();
+      };
+      img.src = ev.target.result;
+    };
+    r.readAsDataURL(f);
   }
 
   function fetchContent(){
@@ -173,7 +230,7 @@
     var bar = document.createElement("div"); bar.className="iw-bar";
     bar.innerHTML =
       '<div class="iw-bar-in">' +
-        '<div class="iw-status" id="iwStatus">Bearbeiten-Modus · Team. Klick auf Text oder Foto zum Ändern.</div>' +
+        '<div class="iw-status" id="iwStatus">Bearbeiten-Modus. Klick auf einen Text oder ein Bild, um es zu ändern. „Veröffentlichen" macht alles für Besucher live.</div>' +
         '<div class="iw-grp">' +
           '<button class="iw-btn iw-btn--ghost" id="iwPrev">👁 Vorschau</button>' +
           '<button class="iw-btn iw-btn--mint" id="iwPub">Veröffentlichen</button>' +
@@ -186,6 +243,7 @@
       var on = document.body.classList.contains("iw-preview");
       this.textContent = on ? "✎ Weiter bearbeiten" : "👁 Vorschau";
       $("iwTeam").querySelectorAll(".iw-ed").forEach(function(el){ el.setAttribute("contenteditable", on?"false":"true"); });
+      document.querySelectorAll(".iw-gen-ed").forEach(function(el){ el.setAttribute("contenteditable", on?"false":"true"); });
     };
   }
 
@@ -195,26 +253,36 @@
   function publish(){
     var btn=$("iwPub"); btn.disabled=true; setStatus("Veröffentliche …");
     var images=[];
-    var outTeam = team.map(function(m,i){
+    function imgName(ext){ return "bild-"+Date.now()+"-"+(imgCounter++)+"."+ext; }
+    function extOf(dataUrl){ return dataUrl.slice(5, dataUrl.indexOf(",")).indexOf("png")>-1 ? "png" : "jpg"; }
+
+    var content = clone(CONTENT);
+
+    // 1) Team (Liste)
+    content.team = team.map(function(m){
       var mm={ name:m.name||"", role:m.role||"", badge:m.badge||"", desc:m.desc||"", img:m.img||"" };
       if(typeof m.pos==="number") mm.pos=m.pos;
-      if(mm.img.indexOf("data:")===0){
-        var comma=mm.img.indexOf(","), meta=mm.img.slice(5,comma);
-        var ext = meta.indexOf("png")>-1 ? "png" : "jpg";
-        var fname="team-"+Date.now()+"-"+i+"."+ext;
-        images.push({ name:fname, base64: mm.img.slice(comma+1) });
-        mm.img="/uploads/"+fname;
-      }
+      if(mm.img.indexOf("data:")===0){ var fn=imgName(extOf(mm.img)); images.push({ name:fn, base64: mm.img.slice(mm.img.indexOf(",")+1) }); mm.img="/uploads/"+fn; }
       return mm;
     });
-    var content = clone(CONTENT); content.team = outTeam;
+
+    // 2) Alle Texte (benannte Felder + automatisch erkannte)
+    TEXTED.forEach(function(t){ content[t.key] = t.html ? t.el.innerHTML : t.el.textContent; });
+
+    // 3) Alle Bilder
+    IMGED.forEach(function(im){
+      var src = im.el.getAttribute("src") || "";
+      if(src.indexOf("data:")===0){ var fn=imgName(extOf(src)); images.push({ name:fn, base64: src.slice(src.indexOf(",")+1) }); content[im.key]="/uploads/"+fn; }
+      else if(src){ content[im.key]=src; }
+    });
+
     var pw = sessionStorage.getItem("iw_pw") || "";
     fetch(FN, { method:"POST", headers:{"Content-Type":"application/json"},
-      body: JSON.stringify({ password:pw, content:content, images:images, message:"Team über Editor aktualisiert" }) })
+      body: JSON.stringify({ password:pw, content:content, images:images, message:"Inhalte über Editor aktualisiert" }) })
       .then(function(r){ return r.text().then(function(t){ return {status:r.status, t:t}; }); })
       .then(function(res){
         btn.disabled=false;
-        if(res.status===200){ team=outTeam.map(clone); CONTENT=content; dirty=false; setStatus("Veröffentlicht ✓ — in etwa 10–30 Sekunden für alle live."); renderTeam(); }
+        if(res.status===200){ CONTENT=content; dirty=false; setStatus("Veröffentlicht ✓ — in etwa 10–30 Sekunden für alle live."); }
         else if(res.status===401){ sessionStorage.removeItem("iw_pw"); setStatus("Falsches Passwort. Bitte Seite neu laden und erneut anmelden."); }
         else { setStatus("Fehler beim Veröffentlichen: " + res.t.slice(0,160)); }
       })
@@ -236,6 +304,12 @@
     ".iw-btn--ghost{background:transparent;color:#0F4D42;box-shadow:inset 0 0 0 1.5px #0F4D42}" +
     /* Team im Edit-Modus: Fotos in Farbe, Karten klar */
     "body.iw-editing #iwTeam .member__img img{filter:none!important}" +
+    /* Generisch editierbare Texte/Bilder auf der ganzen Seite */
+    "body.iw-editing:not(.iw-preview) .iw-gen-ed{outline:none;border-radius:5px;transition:background .15s,box-shadow .15s;cursor:text}" +
+    "body.iw-editing:not(.iw-preview) .iw-gen-ed:hover{background:rgba(111,224,198,.28)}" +
+    "body.iw-editing:not(.iw-preview) .iw-gen-ed:focus{background:rgba(255,255,255,.92);box-shadow:0 0 0 2px #6FE0C6}" +
+    "body.iw-editing:not(.iw-preview) .iw-gen-img{cursor:pointer;outline-offset:2px;transition:outline .12s}" +
+    "body.iw-editing:not(.iw-preview) .iw-gen-img:hover{outline:3px solid #6FE0C6}" +
     "#iwTeam .iw-edit-card{position:relative}" +
     "#iwTeam .iw-ed{outline:none;border-radius:6px;cursor:text;transition:background .15s,box-shadow .15s}" +
     "body.iw-editing:not(.iw-preview) #iwTeam .iw-ed:hover{background:#BCEEE3}" +

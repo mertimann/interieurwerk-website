@@ -934,8 +934,8 @@ body.menu-open .overlay__side{opacity:1;}
   "use strict";
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var fine = window.matchMedia("(hover:hover) and (pointer:fine)").matches;
-  /* Vorschau-Modus (CMS): keine Dauer-Animationen, alles sofort sichtbar */
-  var PREVIEW = /[?&]cmspreview=1/.test(location.search);
+  /* Vorschau-/Bearbeiten-Modus: keine Dauer-Animationen, alles sofort sichtbar */
+  var PREVIEW = /[?&]cmspreview=1/.test(location.search) || /(^|[#&])bearbeiten/.test(location.hash);
 
   /* ---------- PRELOADER ---------- */
   var pre = document.getElementById("preloader");
@@ -1148,10 +1148,18 @@ body.menu-open .overlay__side{opacity:1;}
 (function(){
  function applyGallery(arr){var box=document.getElementById('iwGallery');if(!box||!Array.isArray(arr))return;box.classList.add('gallery--dyn');box.innerHTML='';arr.forEach(function(it){var f=document.createElement('figure');f.setAttribute('data-cursor','');var im=document.createElement('img');im.loading='lazy';im.src=it.src||'';im.alt=it.cat||'Projekt';f.appendChild(im);if(it.cat){var c=document.createElement('figcaption');c.textContent=it.cat;f.appendChild(c);}box.appendChild(f);});}
  function renderTeam(arr){var box=document.getElementById('iwTeam');if(!box||!Array.isArray(arr))return;box.innerHTML='';arr.forEach(function(m){if(!m)return;var a=document.createElement('article');a.className='member';a.setAttribute('data-cursor','');var fig=document.createElement('div');fig.className='member__img';if(m.img){var im=document.createElement('img');im.loading='lazy';im.decoding='async';im.src=m.img;im.alt=m.name||'';if(typeof m.pos==='number'){im.style.objectPosition='center '+m.pos+'%';}fig.appendChild(im);}if(m.badge){var b=document.createElement('span');b.className='badge';b.textContent=m.badge;fig.appendChild(b);}var h=document.createElement('h3');h.textContent=m.name||'';var r=document.createElement('div');r.className='role';r.textContent=m.role||'';var p=document.createElement('p');p.textContent=m.desc||'';a.appendChild(fig);a.appendChild(h);a.appendChild(r);a.appendChild(p);box.appendChild(a);});}
+ /* ----- generisch: alle übrigen Texte & Bilder automatisch erfassen ----- */
+ var IW_TEXT_SEL='h1,h2,h3,h4,h5,h6,p,li,figcaption,blockquote,.eyebrow,.lead,.role,.stat__txt';
+ function iwSkip(el){return !!(el.closest('#iwTeam')||el.closest('#iwGallery')||el.closest('nav')||el.closest('header')||el.closest('.menu')||el.closest('#preloader')||el.closest('script')||el.closest('style')||el.closest('form'));}
+ function iwHasBlockChild(el){return !!el.querySelector('h1,h2,h3,h4,h5,h6,p,div,ul,ol,section,article,figure,img,button,a,form');}
+ function iwEditableNodes(){var out=[];document.querySelectorAll(IW_TEXT_SEL).forEach(function(el){if(iwSkip(el))return;if(el.hasAttribute('data-content')||el.hasAttribute('data-content-html')||el.hasAttribute('data-content-src'))return;if(iwHasBlockChild(el))return;if(!(el.textContent||'').trim())return;out.push(el);});return out;}
+ function iwImageNodes(){var out=[];document.querySelectorAll('img').forEach(function(im){if(iwSkip(im))return;if(im.hasAttribute('data-content-src'))return;out.push(im);});return out;}
+ function iwApplyGeneric(c){if(!c)return;iwEditableNodes().forEach(function(el,i){var k='t'+i;if(c[k]!=null){if(el.children.length){el.innerHTML=c[k];}else{el.textContent=c[k];}}});iwImageNodes().forEach(function(el,i){var k='img'+i;if(c[k]!=null){el.setAttribute('src',c[k]);}});}
+ window.iwEditableNodes=iwEditableNodes;window.iwImageNodes=iwImageNodes;
  function apply(c){if(!c)return;for(var k in c){var v=c[k];if(k==='gallery'){applyGallery(v);continue;}if(k==='team'){renderTeam(v);continue;}
  document.querySelectorAll('[data-content="'+k+'"]').forEach(function(el){el.textContent=v;});
  document.querySelectorAll('[data-content-html="'+k+'"]').forEach(function(el){el.innerHTML=v;});
- document.querySelectorAll('[data-content-src="'+k+'"]').forEach(function(el){el.setAttribute('src',v);});}}
+ document.querySelectorAll('[data-content-src="'+k+'"]').forEach(function(el){el.setAttribute('src',v);});}iwApplyGeneric(c);}
  try{var ls=localStorage.getItem('iw_content');if(ls)apply(JSON.parse(ls));}catch(e){}
  fetch('content.json',{cache:'no-store'}).then(function(r){return r.json();}).then(apply).catch(function(){});
  window.addEventListener('message',function(e){if(e.data&&e.data.type==='iw-content')apply(e.data.data);});
