@@ -45,21 +45,24 @@
       "role": "Kundenberater",
       "badge": "",
       "desc": "Seit 25 Jahren an Christians Seite. Bietet mit enormem Fachwissen professionelle Beratung und erstklassigen Service.",
-      "img": "https://www.interieurwerk-viersen.de/wp-content/uploads/go-x/u/be736284-11f0-486d-8e32-24456a467694/l0,t0,w1080,h1080/image-384x384.png"
+      "img": "https://www.interieurwerk-viersen.de/wp-content/uploads/go-x/u/be736284-11f0-486d-8e32-24456a467694/l0,t0,w1080,h1080/image-384x384.png",
+      "pos": 29
     },
     {
       "name": "Andreas Körl",
       "role": "Leiter Fliesenverlegung",
       "badge": "",
       "desc": "Ausgebildeter Fliesen-, Platten- und Mosaiklegermeister mit langjähriger Erfahrung — und Ausbilder im Betrieb.",
-      "img": "/uploads/team-1781707043380-2.jpg"
+      "img": "/uploads/team-1781707043380-2.jpg",
+      "pos": 27
     },
     {
       "name": "Unser Verlegeteam",
       "role": "Fliesen- & Bodenleger",
       "badge": "",
       "desc": "Ein kleines, professionelles Team mit langjähriger Erfahrung, spezialisiert darauf, individuelle Wünsche auf höchstem Niveau umzusetzen.",
-      "img": "https://www.interieurwerk-viersen.de/wp-content/uploads/go-x/u/cbe6d17a-6791-44d5-8809-105c8313c9ad/l200,t0,w1200,h1200/image-384x384.jpg"
+      "img": "/uploads/bild-1781764915806-0.jpg",
+      "pos": 27
     }
   ],
   "t0": "Showroom",
