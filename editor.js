@@ -25,7 +25,7 @@
       img: "https://www.interieurwerk-viersen.de/wp-content/uploads/go-x/u/cbe6d17a-6791-44d5-8809-105c8313c9ad/l200,t0,w1200,h1200/image-384x384.jpg" }
   ];
 
-  var CONTENT = {}, team = [], dirty = false, pendingIdx = null, fileInput;
+  var CONTENT = {}, team = [], gallery = [], dirty = false, pendingIdx = null, pendingGalIdx = null, fileInput, galInput;
   var imgInput, pendingImgEl = null, TEXTED = [], IMGED = [], imgCounter = 0, IMGPOS = {};
 
   injectCSS();
@@ -66,9 +66,15 @@
     imgInput.addEventListener("change", onImgFile);
     document.body.appendChild(imgInput);
 
+    galInput = document.createElement("input");
+    galInput.type="file"; galInput.accept="image/*"; galInput.style.display="none";
+    galInput.addEventListener("change", onGalFile);
+    document.body.appendChild(galInput);
+
     document.body.classList.add("iw-editing");
     fetchContent().then(function(){
       renderTeam();
+      renderGallery();    // Inspiration/Galerie editierbar machen
       enhanceGeneric();   // alle übrigen Texte + Bilder editierbar machen
       buildBar();
     });
@@ -147,14 +153,14 @@
       bP.addEventListener("click", function(e){
         if (document.body.classList.contains("iw-preview")) return;
         e.preventDefault(); e.stopPropagation();
-        startPos(img, key, bP);
+        startPos(img, bP, function(v){ IMGPOS[key]=v; });
       });
       grp.appendChild(bP);
     }
     anchor.appendChild(grp);
   }
   /* ---------- Bildausschnitt (Fokus) per Ziehen ---------- */
-  var posOv=null, posImg=null, posKey=null, posBtn=null, posDrag=false, posLX=0, posLY=0, posX=50, posY=50;
+  var posOv=null, posImg=null, posOnChange=null, posBtn=null, posDrag=false, posLX=0, posLY=0, posX=50, posY=50;
   function curPos(img){
     var p = img.style.objectPosition || getComputedStyle(img).objectPosition || "50% 50%";
     var m = p.match(/(-?[\d.]+)%\s+(-?[\d.]+)%/);
@@ -162,9 +168,9 @@
   }
   function placePosOv(){ if(!posOv||!posImg) return; var r=posImg.getBoundingClientRect();
     posOv.style.left=r.left+"px"; posOv.style.top=r.top+"px"; posOv.style.width=r.width+"px"; posOv.style.height=r.height+"px"; }
-  function startPos(img, key, btn){
+  function startPos(img, btn, onChange){
     if (posOv){ var same=(posImg===img); endPos(); if(same) return; }
-    posImg=img; posKey=key; posBtn=btn;
+    posImg=img; posBtn=btn; posOnChange=onChange;
     var c=curPos(img); posX=c.x; posY=c.y;
     posOv=document.createElement("div"); posOv.className="iw-posov";
     posOv.innerHTML='<span class="iw-poshint">↕↔ ziehen = Bildausschnitt wählen</span><button type="button" class="iw-posdone">✓ Fertig</button>';
@@ -183,7 +189,7 @@
       posY = Math.max(0, Math.min(100, posY - (e.clientY-posLY)/Math.max(1,r.height)*100));
       posLX=e.clientX; posLY=e.clientY;
       var v=posX.toFixed(1)+"% "+posY.toFixed(1)+"%";
-      posImg.style.objectPosition=v; IMGPOS[posKey]=v; markDirty();
+      posImg.style.objectPosition=v; if(posOnChange) posOnChange(v); markDirty();
     });
     function up(){ posDrag=false; }
     posOv.addEventListener("pointerup", up);
@@ -198,7 +204,7 @@
     window.removeEventListener("resize", placePosOv);
     posOv.remove(); posOv=null; document.body.classList.remove("iw-posing");
     if(posBtn) posBtn.textContent="⤢ Ausschnitt";
-    posImg=null; posKey=null; posBtn=null; posDrag=false;
+    posImg=null; posOnChange=null; posBtn=null; posDrag=false;
   }
   function onImgFile(){
     var f = imgInput.files && imgInput.files[0]; if(!f || !pendingImgEl) return;
@@ -222,8 +228,18 @@
   function fetchContent(){
     return fetch("/content.json?cb=" + Date.now(), {cache:"no-store"})
       .then(function(r){ return r.ok ? r.json() : {}; })
-      .then(function(j){ CONTENT = j || {}; team = (Array.isArray(CONTENT.team) && CONTENT.team.length) ? CONTENT.team.map(clone) : DEFAULT_TEAM.map(clone); })
-      .catch(function(){ CONTENT = {}; team = DEFAULT_TEAM.map(clone); });
+      .then(function(j){ CONTENT = j || {};
+        team = (Array.isArray(CONTENT.team) && CONTENT.team.length) ? CONTENT.team.map(clone) : DEFAULT_TEAM.map(clone);
+        gallery = (Array.isArray(CONTENT.gallery) && CONTENT.gallery.length) ? CONTENT.gallery.map(clone) : galleryFromDOM();
+      })
+      .catch(function(){ CONTENT = {}; team = DEFAULT_TEAM.map(clone); gallery = galleryFromDOM(); });
+  }
+  function galleryFromDOM(){
+    var box = $("iwGallery"); if(!box) return [];
+    return [].slice.call(box.querySelectorAll("figure")).map(function(f){
+      var im=f.querySelector("img"), cap=f.querySelector("figcaption");
+      return { src: im ? (im.getAttribute("src")||"") : "", cat: cap ? cap.textContent.trim() : "" };
+    });
   }
 
   /* ---------- Team editierbar rendern ---------- */
@@ -318,6 +334,75 @@
     r.readAsDataURL(f);
   }
 
+  /* ---------- Inspiration / Galerie editierbar ---------- */
+  function renderGallery(){
+    var box = $("iwGallery"); if(!box) return;
+    box.classList.add("gallery--dyn");
+    box.innerHTML = "";
+    gallery.forEach(function(it,i){
+      var f = document.createElement("figure");
+      f.className = "iw-gal-fig iw-imgbtn-anchor iw-anchor-covered";
+      f.setAttribute("data-cursor","");
+      var pos = it.pos || "50% 50%";
+      var media = it.src
+        ? '<img src="'+esc(it.src)+'" alt="'+esc(it.cat||"Projekt")+'" loading="lazy" style="object-position:'+esc(pos)+'"/>'
+        : '<div class="iw-ph"><span>Bild<br>wählen</span></div>';
+      f.innerHTML =
+        media +
+        '<div class="iw-imgctrls">' +
+          '<button class="iw-imgbtn" data-galup="'+i+'">'+(it.src?"Bild ändern":"Bild wählen")+'</button>' +
+          (it.src?'<button class="iw-imgbtn iw-imgbtn--pos" data-galpos="'+i+'">⤢ Ausschnitt</button>':'') +
+        '</div>' +
+        '<button class="iw-del" data-galdel="'+i+'" title="Bild entfernen">×</button>' +
+        '<figcaption class="iw-galcap" data-gali="'+i+'" contenteditable="true">'+esc(it.cat||"")+'</figcaption>';
+      box.appendChild(f);
+    });
+    var add = document.createElement("button");
+    add.className = "iw-addgal"; add.id = "iwAddGal";
+    add.innerHTML = '<span class="iw-plus">＋</span>Bild hinzufügen';
+    box.appendChild(add);
+    bindGallery();
+  }
+  function bindGallery(){
+    var box = $("iwGallery"); if(!box) return;
+    box.querySelectorAll(".iw-galcap").forEach(function(el){
+      el.addEventListener("input", function(){ gallery[+el.getAttribute("data-gali")].cat = el.textContent; markDirty(); });
+      el.addEventListener("paste", function(e){ e.preventDefault(); var t=(e.clipboardData||window.clipboardData).getData("text"); document.execCommand("insertText",false,t); });
+      el.addEventListener("keydown", function(e){ if(e.key==="Enter"){ e.preventDefault(); el.blur(); } });
+    });
+    box.querySelectorAll("[data-galup]").forEach(function(b){
+      b.addEventListener("click", function(e){ e.preventDefault(); e.stopPropagation(); if(document.body.classList.contains("iw-preview"))return; pendingGalIdx=+b.getAttribute("data-galup"); galInput.value=""; galInput.click(); });
+    });
+    box.querySelectorAll("[data-galpos]").forEach(function(b){
+      b.addEventListener("click", function(e){ e.preventDefault(); e.stopPropagation(); if(document.body.classList.contains("iw-preview"))return;
+        var i=+b.getAttribute("data-galpos"); var im=b.closest("figure").querySelector("img"); if(!im) return;
+        startPos(im, b, function(v){ gallery[i].pos = v; }); });
+    });
+    box.querySelectorAll("[data-galdel]").forEach(function(b){
+      b.addEventListener("click", function(e){ e.preventDefault(); e.stopPropagation(); var i=+b.getAttribute("data-galdel"); if(confirm("Dieses Bild aus der Galerie entfernen?")){ gallery.splice(i,1); markDirty(); renderGallery(); } });
+    });
+    var add = $("iwAddGal");
+    if (add) add.addEventListener("click", function(e){ e.preventDefault(); pendingGalIdx="new"; galInput.value=""; galInput.click(); });
+  }
+  function onGalFile(){
+    var f = galInput.files && galInput.files[0]; if(!f || pendingGalIdx===null) return;
+    var idx = pendingGalIdx; pendingGalIdx = null;
+    var r = new FileReader();
+    r.onload = function(ev){
+      var img = new Image();
+      img.onload = function(){
+        var max=1400, w=img.width, h=img.height;
+        if(w>max||h>max){ if(w>=h){ h=Math.round(h*max/w); w=max; } else { w=Math.round(w*max/h); h=max; } }
+        var c=document.createElement("canvas"); c.width=w; c.height=h; c.getContext("2d").drawImage(img,0,0,w,h);
+        var data=c.toDataURL("image/jpeg",0.85);
+        if(idx==="new"){ gallery.push({ src:data, cat:"" }); } else if(gallery[idx]){ gallery[idx].src = data; }
+        markDirty(); renderGallery();
+      };
+      img.src = ev.target.result;
+    };
+    r.readAsDataURL(f);
+  }
+
   /* ---------- Werkzeugleiste + Veröffentlichen ---------- */
   function buildBar(){
     var bar = document.createElement("div"); bar.className="iw-bar";
@@ -337,6 +422,7 @@
       this.textContent = on ? "✎ Weiter bearbeiten" : "👁 Vorschau";
       $("iwTeam").querySelectorAll(".iw-ed").forEach(function(el){ el.setAttribute("contenteditable", on?"false":"true"); });
       document.querySelectorAll(".iw-gen-ed").forEach(function(el){ el.setAttribute("contenteditable", on?"false":"true"); });
+      document.querySelectorAll(".iw-galcap").forEach(function(el){ el.setAttribute("contenteditable", on?"false":"true"); });
     };
   }
 
@@ -357,6 +443,14 @@
       if(typeof m.pos==="number") mm.pos=m.pos;
       if(mm.img.indexOf("data:")===0){ var fn=imgName(extOf(mm.img)); images.push({ name:fn, base64: mm.img.slice(mm.img.indexOf(",")+1) }); mm.img="/uploads/"+fn; }
       return mm;
+    });
+
+    // 1b) Galerie (Inspiration)
+    content.gallery = gallery.map(function(it){
+      var g={ src:it.src||"", cat:it.cat||"" };
+      if(it.pos) g.pos=it.pos;
+      if(g.src.indexOf("data:")===0){ var fn=imgName(extOf(g.src)); images.push({ name:fn, base64: g.src.slice(g.src.indexOf(",")+1) }); g.src="/uploads/"+fn; }
+      return g;
     });
 
     // 2) Alle Texte (benannte Felder + automatisch erkannte)
@@ -418,6 +512,18 @@
     ".iw-posov:active{cursor:grabbing}" +
     ".iw-poshint{position:absolute;top:8px;left:8px;background:rgba(15,77,66,.92);color:#EAF8F3;font:600 11px/1 'Space Grotesk',sans-serif;padding:6px 9px;border-radius:100px;pointer-events:none;white-space:nowrap}" +
     ".iw-posdone{position:absolute;bottom:8px;right:8px;background:#6FE0C6;color:#0E1413;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:12px;border:none;border-radius:100px;padding:7px 14px;cursor:pointer}" +
+    /* Inspiration / Galerie-Editor */
+    ".iw-gal-fig{position:relative}" +
+    "body.iw-editing #iwGallery figcaption{opacity:1!important;visibility:visible!important}" +
+    "#iwGallery .iw-ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:#eef5f3;color:#7d968f;font:600 13px/1.3 Inter,system-ui,sans-serif;text-align:center}" +
+    "#iwGallery .iw-del{position:absolute;top:8px;left:8px;width:28px;height:28px;border-radius:50%;border:none;background:#fff;color:#c0392b;box-shadow:0 4px 12px rgba(0,0,0,.18);cursor:pointer;font-size:16px;line-height:1;z-index:7;opacity:0;transition:.15s}" +
+    "body.iw-editing:not(.iw-preview) #iwGallery .iw-gal-fig:hover .iw-del{opacity:1}" +
+    "body.iw-editing:not(.iw-preview) #iwGallery .iw-galcap{cursor:text;outline:none;border-radius:5px}" +
+    "body.iw-editing:not(.iw-preview) #iwGallery .iw-galcap:hover{box-shadow:0 0 0 2px #6FE0C6}" +
+    "body.iw-editing:not(.iw-preview) #iwGallery .iw-galcap:focus{box-shadow:0 0 0 2px #6FE0C6}" +
+    ".iw-addgal{border:2px dashed #6FE0C6;border-radius:14px;min-height:130px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#1E8A73;font-family:'Space Grotesk',sans-serif;font-weight:600;cursor:pointer;background:transparent}" +
+    ".iw-addgal:hover{background:#BCEEE3}" +
+    "body.iw-preview #iwGallery .iw-del,body.iw-preview .iw-addgal{display:none!important}" +
     "#iwTeam .iw-edit-card{position:relative}" +
     "#iwTeam .iw-ed{outline:none;border-radius:6px;cursor:text;transition:background .15s,box-shadow .15s}" +
     "body.iw-editing:not(.iw-preview) #iwTeam .iw-ed:hover{background:#BCEEE3}" +
