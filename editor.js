@@ -26,7 +26,7 @@
   ];
 
   var CONTENT = {}, team = [], dirty = false, pendingIdx = null, fileInput;
-  var imgInput, pendingImgEl = null, TEXTED = [], IMGED = [], imgCounter = 0;
+  var imgInput, pendingImgEl = null, TEXTED = [], IMGED = [], imgCounter = 0, IMGPOS = {};
 
   injectCSS();
   gate(start);
@@ -105,9 +105,10 @@
       e.preventDefault(); e.stopPropagation();
       pendingImgEl = el; imgInput.value=""; imgInput.click();
     });
-    // Bilder, die als Hintergrund hinter Text/Overlays liegen (z. B. Sortiment-Karten),
-    // sind nicht direkt anklickbar -> zusätzlich einen sichtbaren "Bild ändern"-Button anbieten.
-    if (iwImgCovered(el)) addImgButton(el);
+    // gespeicherten Bildausschnitt (Fokus) anwenden
+    if (CONTENT && CONTENT[key+"__pos"]){ el.style.objectPosition = CONTENT[key+"__pos"]; IMGPOS[key] = CONTENT[key+"__pos"]; }
+    // Steuer-Buttons: "Bild ändern" (nur bei verdeckten Bildern) + "Ausschnitt" (bei allen cover-Bildern)
+    addImgControls(el, key);
     IMGED.push({ el:el, key:key });
   }
   function iwNegZ(el){ if(!el) return false; var z=getComputedStyle(el).zIndex; return z!=="auto" && parseInt(z,10)<0; }
@@ -121,18 +122,83 @@
     }
     return img.parentElement || img;
   }
-  function addImgButton(img){
+  function addImgControls(img, key){
+    var covered = iwImgCovered(img);
+    var coverFit = getComputedStyle(img).objectFit === "cover";
+    if (!covered && !coverFit) return;           // direkt anklickbar, kein Ausschnitt nötig
     var anchor = iwImgAnchor(img); if(!anchor) return;
     anchor.classList.add("iw-imgbtn-anchor");
+    if (covered) anchor.classList.add("iw-anchor-covered");
     if (getComputedStyle(anchor).position==="static") anchor.style.position="relative";
-    var b = document.createElement("button");
-    b.type="button"; b.className="iw-imgbtn"; b.textContent="Bild ändern";
-    b.addEventListener("click", function(e){
-      if (document.body.classList.contains("iw-preview")) return;
-      e.preventDefault(); e.stopPropagation();
-      pendingImgEl = img; imgInput.value=""; imgInput.click();
+    var grp = document.createElement("div"); grp.className="iw-imgctrls";
+    if (covered){
+      var bC = document.createElement("button");
+      bC.type="button"; bC.className="iw-imgbtn"; bC.textContent="Bild ändern";
+      bC.addEventListener("click", function(e){
+        if (document.body.classList.contains("iw-preview")) return;
+        e.preventDefault(); e.stopPropagation();
+        pendingImgEl = img; imgInput.value=""; imgInput.click();
+      });
+      grp.appendChild(bC);
+    }
+    if (coverFit){
+      var bP = document.createElement("button");
+      bP.type="button"; bP.className="iw-imgbtn iw-imgbtn--pos"; bP.textContent="⤢ Ausschnitt";
+      bP.addEventListener("click", function(e){
+        if (document.body.classList.contains("iw-preview")) return;
+        e.preventDefault(); e.stopPropagation();
+        startPos(img, key, bP);
+      });
+      grp.appendChild(bP);
+    }
+    anchor.appendChild(grp);
+  }
+  /* ---------- Bildausschnitt (Fokus) per Ziehen ---------- */
+  var posOv=null, posImg=null, posKey=null, posBtn=null, posDrag=false, posLX=0, posLY=0, posX=50, posY=50;
+  function curPos(img){
+    var p = img.style.objectPosition || getComputedStyle(img).objectPosition || "50% 50%";
+    var m = p.match(/(-?[\d.]+)%\s+(-?[\d.]+)%/);
+    return m ? { x:parseFloat(m[1]), y:parseFloat(m[2]) } : { x:50, y:50 };
+  }
+  function placePosOv(){ if(!posOv||!posImg) return; var r=posImg.getBoundingClientRect();
+    posOv.style.left=r.left+"px"; posOv.style.top=r.top+"px"; posOv.style.width=r.width+"px"; posOv.style.height=r.height+"px"; }
+  function startPos(img, key, btn){
+    if (posOv){ var same=(posImg===img); endPos(); if(same) return; }
+    posImg=img; posKey=key; posBtn=btn;
+    var c=curPos(img); posX=c.x; posY=c.y;
+    posOv=document.createElement("div"); posOv.className="iw-posov";
+    posOv.innerHTML='<span class="iw-poshint">↕↔ ziehen = Bildausschnitt wählen</span><button type="button" class="iw-posdone">✓ Fertig</button>';
+    document.body.appendChild(posOv); placePosOv();
+    document.body.classList.add("iw-posing"); btn.textContent="✓ Fertig";
+    posOv.addEventListener("pointerdown", function(e){
+      if (e.target.closest(".iw-posdone")) return;
+      posDrag=true; posLX=e.clientX; posLY=e.clientY;
+      try{ posOv.setPointerCapture(e.pointerId); }catch(_){}
+      e.preventDefault();
     });
-    anchor.appendChild(b);
+    posOv.addEventListener("pointermove", function(e){
+      if(!posDrag) return;
+      var r=posImg.getBoundingClientRect();
+      posX = Math.max(0, Math.min(100, posX - (e.clientX-posLX)/Math.max(1,r.width)*100));
+      posY = Math.max(0, Math.min(100, posY - (e.clientY-posLY)/Math.max(1,r.height)*100));
+      posLX=e.clientX; posLY=e.clientY;
+      var v=posX.toFixed(1)+"% "+posY.toFixed(1)+"%";
+      posImg.style.objectPosition=v; IMGPOS[posKey]=v; markDirty();
+    });
+    function up(){ posDrag=false; }
+    posOv.addEventListener("pointerup", up);
+    posOv.addEventListener("pointercancel", up);
+    posOv.querySelector(".iw-posdone").addEventListener("click", function(e){ e.stopPropagation(); endPos(); });
+    window.addEventListener("scroll", placePosOv, true);
+    window.addEventListener("resize", placePosOv);
+  }
+  function endPos(){
+    if(!posOv) return;
+    window.removeEventListener("scroll", placePosOv, true);
+    window.removeEventListener("resize", placePosOv);
+    posOv.remove(); posOv=null; document.body.classList.remove("iw-posing");
+    if(posBtn) posBtn.textContent="⤢ Ausschnitt";
+    posImg=null; posKey=null; posBtn=null; posDrag=false;
   }
   function onImgFile(){
     var f = imgInput.files && imgInput.files[0]; if(!f || !pendingImgEl) return;
@@ -303,6 +369,9 @@
       else if(src){ content[im.key]=src; }
     });
 
+    // 3b) Bildausschnitte (Fokus / object-position)
+    Object.keys(IMGPOS).forEach(function(k){ if(IMGPOS[k]) content[k+"__pos"]=IMGPOS[k]; });
+
     var pw = sessionStorage.getItem("iw_pw") || "";
     fetch(FN, { method:"POST", headers:{"Content-Type":"application/json"},
       body: JSON.stringify({ password:pw, content:content, images:images, message:"Inhalte über Editor aktualisiert" }) })
@@ -337,10 +406,18 @@
     "body.iw-editing:not(.iw-preview) .iw-gen-ed:focus{background:rgba(255,255,255,.92);box-shadow:0 0 0 2px #6FE0C6}" +
     "body.iw-editing:not(.iw-preview) .iw-gen-img{cursor:pointer;outline-offset:2px;transition:outline .12s}" +
     "body.iw-editing:not(.iw-preview) .iw-gen-img:hover{outline:3px solid #6FE0C6}" +
-    /* Sichtbarer Button für verdeckte/Hintergrund-Bilder (z. B. Sortiment) */
-    ".iw-imgbtn{position:absolute;top:10px;right:10px;z-index:6;background:#fff;color:#0F4D42;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:12px;padding:7px 13px;border:none;border-radius:100px;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.22);opacity:.92;transition:opacity .15s,transform .15s}" +
-    "body.iw-editing:not(.iw-preview) .iw-imgbtn-anchor:hover .iw-imgbtn{opacity:1;transform:translateY(-1px)}" +
-    "body.iw-preview .iw-imgbtn,body:not(.iw-editing) .iw-imgbtn{display:none!important}" +
+    /* Steuer-Buttons über Bildern (verdeckt/Hintergrund + Ausschnitt) */
+    ".iw-imgctrls{position:absolute;top:10px;right:10px;z-index:6;display:flex;gap:6px;opacity:0;transition:opacity .15s}" +
+    "body.iw-editing:not(.iw-preview) .iw-imgbtn-anchor:hover .iw-imgctrls{opacity:1}" +
+    "body.iw-editing:not(.iw-preview) .iw-anchor-covered .iw-imgctrls{opacity:.95}" +
+    ".iw-imgbtn{background:#fff;color:#0F4D42;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:12px;padding:7px 13px;border:none;border-radius:100px;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.22);white-space:nowrap}" +
+    ".iw-imgbtn--pos{background:#0F4D42;color:#EAF8F3}" +
+    "body.iw-preview .iw-imgctrls,body:not(.iw-editing) .iw-imgctrls{display:none!important}" +
+    /* Ausschnitt-Overlay (Fokus per Ziehen) */
+    ".iw-posov{position:fixed;z-index:99995;cursor:grab;touch-action:none;box-shadow:0 0 0 3px #6FE0C6,0 0 0 9999px rgba(10,20,18,.45);border-radius:4px}" +
+    ".iw-posov:active{cursor:grabbing}" +
+    ".iw-poshint{position:absolute;top:8px;left:8px;background:rgba(15,77,66,.92);color:#EAF8F3;font:600 11px/1 'Space Grotesk',sans-serif;padding:6px 9px;border-radius:100px;pointer-events:none;white-space:nowrap}" +
+    ".iw-posdone{position:absolute;bottom:8px;right:8px;background:#6FE0C6;color:#0E1413;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:12px;border:none;border-radius:100px;padding:7px 14px;cursor:pointer}" +
     "#iwTeam .iw-edit-card{position:relative}" +
     "#iwTeam .iw-ed{outline:none;border-radius:6px;cursor:text;transition:background .15s,box-shadow .15s}" +
     "body.iw-editing:not(.iw-preview) #iwTeam .iw-ed:hover{background:#BCEEE3}" +
